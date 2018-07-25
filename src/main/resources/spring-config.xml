@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/data/jpa
+       http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+       http://www.springframework.org/schema/cache
+       http://www.springframework.org/schema/cache/spring-cache.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <!--    Включение кеша Spring-->
+    <cache:annotation-driven/>
+
+    <!--    Объявление менеджера кеша -->
+
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager">
+            <bean class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+                <property name="configLocation" value="classpath:ehcache.xml"/>
+                <property name="shared" value="true"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <!--@Transaction annotation support -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+    <tx:advice id="transactionManagerTune" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!--Propagation.REQUIRED — применяется по умолчанию. При входе в @Transactional метод будет использована уже существующая транзакция или
+            создана новая транзакция, если никакой ещё нет-->
+            <!--Propagation.REQUIRES_NEW — второе по распространённости правило. Транзакция всегда создаётся при входе метод с
+            Propagation.REQUIRES_NEW, ранее созданные транзакции приостанавливаются до момента возврата из метода.-->
+            <!--Propagation.NESTED — корректно работает только с базами данных, которые умеют savepoints. При входе в метод в уже существующей
+            транзакции создаётся savepoint, который по результатам выполнения метода будет либо сохранён, либо откачен. Все изменения,
+            внесённые методом, подтвердятся только поздее, с подтверждением всей транзакции. Если текущей транзакции не существует, будет создана новая.-->
+            <!--Propagation.MANDATORY — обратный по отношению к Propagation.REQUIRES_NEW: всегда используется существующая транзакция и кидается исключение, если текущей транзакции нет.-->
+            <!--Propagation.SUPPORTS — метод с этим правилом будет использовать текущую транзакцию, если она есть, либо будет исполнятся без транзакции, если её нет.-->
+            <!--Propagation.NOT_SUPPORTED — одно из самых забавных правил. При входе в метод текущая транзакция, если она есть, будет приостановлена и метод будет выполняться без транзакции.-->
+            <!--Propagation.NEVER — правило, которое явно запрещает исполнение в контексте транзакции. Если при входе в метод будет существовать транзакция, будет выброшено исключение.            -->
+            <tx:method name="attributesType" propagation="REQUIRED"
+                       rollback-for="java.lang.RuntimeException"
+                       no-rollback-for="ru.vood.Plugin.admPlugin.spring.except.NoDataFoundException,TooManyRowsException"
+                       read-only="false"
+            />
+            <tx:method name="*" propagation="REQUIRED" read-only="true"/>
+
+        </tx:attributes>
+    </tx:advice>
+
+    <!--Обеспечивает работу с транзакциями в Spring -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="emf"/>
+    </bean>
+
+    <!-- EntityManagerFactory -->
+    <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--Поставщик данных - hibernate-->
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <!--поиск сущностей в этом пакете-->
+        <property name="packagesToScan"
+                  value="ru.vood"/>
+
+        <property name="jpaProperties">
+            <props>
+                <!--<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>-->
+                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle12cDialect</prop>
+
+
+                <!--jpa properties-->
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.use_sql_comments">true</prop>
+                <prop key="hibernate.session_factory.statement_inspector">
+                    com.jeeconf.hibernate.performancetuning.sqltracker.StatementInspectorImpl
+                </prop>
+                <prop key="hibernate.SQL">debug</prop>
+                <prop key="hibernate.type">trace</prop>
+
+
+                <!--cache-->
+                <!--<prop key="javax.persistence.sharedCache.mode">ENABLE_SELECTIVE</prop>-->
+                <!--<prop key="hibernate.cache.use_second_level_cache">true</prop>-->
+                <!--<prop key="hibernate.cache.use_query_cache">true</prop>-->
+                <!--<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>-->
+
+                <!--statistics-->
+                <prop key="hibernate.generate_statistics">true</prop>
+
+                <!--batch processing-->
+                <!--Какими пачками Вставлять в базу-->
+                <prop key="hibernate.jdbc.batch_size">10</prop>
+                <prop key="hibernate.order_inserts">true</prop>
+                <prop key="hibernate.order_updates">true</prop>
+                <prop key="hibernate.jdbc.batch_versioned_data">true</prop>
+
+                <!--Устанавливает максимальную "глубину" для дерева выбора внешнего соединения для однократного ассоциаций
+                (один к одному, много-к-одному). A 0 отключает внешнюю внешнюю присоедините выборку. например рекомендуемые значения между 0 и 3 -->
+                <prop key="hibernate.max_fetch_depth">3</prop>
+                <!--Какими пачками вычитывать из БД-->
+                <prop key="hibernate.jdbc.fetch_size">50</prop>
+
+
+                <!--<prop key="hibernate.session_factory.statement_inspector">com.jeeconf.hibernate.performancetuning.sqltracker.StatementInspectorImpl</prop>-->
+
+
+                <!--default_batch_fetch_size: Это свойство очень низкого уровня, которое определяет, сколько строк Hibernate будет запрашивать драйвер JDBC для
+                извлечения/загрузки при запросе ассоциации коллекции. Если вы будете запрашивать все города в стране (предыдущий пример), то,
+                загружая данные партиями через соединение JDBC, процесс получения данных через и в память как объекты будет более упорядоченным.
+                По сравнению с кольцом для выполнения запроса для приложения для обработки данных потребуется, однако, как правило, он незначителен.
+                Обычно оставить свойство конфигурации значением по умолчанию будет правильным. -->
+                <!--<prop key="hibernate.default_batch_fetch_size">true</prop>-->
+            </props>
+        </property>
+    </bean>
+
+    <!-- Datasource. Источник данных - база MySQL -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <!--<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>-->
+        <property name="driverClassName" value="com.p6spy.engine.spy.P6SpyDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:vood"/>
+        <property name="username" value="vood"/>
+        <property name="password" value="vood"/>
+        <!--
+                <property name="url" value="jdbc:oracle:thin:@//devtest.ftc.ru:1548/b0t1529"/>
+                <property name="username" value="ibs"/>
+                <property name="password" value="ibs"/>-->
+    </bean>
+
+    <!--Activates various annotations to be detected in bean classes: Spring's @Required and @Autowired and so on-->
+    <context:annotation-config/>
+    <!-- Spring AOP -->
+    <aop:aspectj-autoproxy/>
+
+    <!--Scanning components in base-package (look for annotations) -->
+    <context:component-scan base-package="ru.vood"/>
+
+    <!-- Need for Repository abstraction -->
+    <jpa:repositories base-package="ru.vood" entity-manager-factory-ref="emf"
+                      transaction-manager-ref="transactionManager"/>
+
+
+</beans>

@@ -1,0 +1,24 @@
+[
+        {
+            "nameCurrentList": "vood",
+            "defaultConfiguration": true,
+            "packageIn": "ru.tora.generatedEntity",
+            "password": "vood",
+            "host": "localhost",
+            "port": "1521",
+            "sid": "vood",
+            "tableSpaseSysTable": "T_DICT",
+            "tableSpaseSysIndex": "T_DICT",
+            "tableSpaseUserTable": "T_DICT",
+            "tableSpaseUserIndex": "T_DICT",
+            "encodding": "UTF-8",
+            "prefixTable": "V_BD_",
+            "prefixColomn": null,
+            "dbmsType": "ORACLE",
+            "user": "vood",
+            "owner": "VOOD",
+            "storageTable": null,
+            "storageIndex": null,
+            "defaultFolder": null
+        }
+]

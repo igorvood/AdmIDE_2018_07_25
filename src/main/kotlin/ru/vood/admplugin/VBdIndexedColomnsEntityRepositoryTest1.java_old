@@ -1,0 +1,12 @@
+package ru.vood.admplugin.infrastructure.spring.repository;
+
+import org.springframework.data.repository.CrudRepository;
+import ru.vood.admplugin.infrastructure.spring.entity.VBdIndexedColomnsEntityTest;
+
+import java.math.BigDecimal;
+
+public interface VBdIndexedColomnsEntityRepositoryTest1 extends CrudRepository<VBdIndexedColomnsEntityTest, BigDecimal> {
+
+    VBdIndexedColomnsEntityTest findById(BigDecimal id);
+//    VBdIndexedColomnsEntityTest findById(BigDecimal id);
+}

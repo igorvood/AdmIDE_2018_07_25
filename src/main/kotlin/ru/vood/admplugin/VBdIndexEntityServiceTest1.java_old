@@ -1,0 +1,10 @@
+package ru.vood.admplugin.infrastructure.spring.intf;
+
+import ru.vood.admplugin.infrastructure.spring.entity.VBdIndexEntityTest;
+
+import java.math.BigDecimal;
+
+public interface VBdIndexEntityServiceTest1 {
+
+    VBdIndexEntityTest findById(BigDecimal id);
+}
