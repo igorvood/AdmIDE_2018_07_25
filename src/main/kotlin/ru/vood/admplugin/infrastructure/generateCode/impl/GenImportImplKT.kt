@@ -29,7 +29,7 @@ class GenImportImplKT : GenImportServiceKT, ApplicationListener<AddImportEvent> 
         listImports.add(event.fullNameClass)
     }
 
-    fun clearImports() {
+    override fun clearImports() {
         listImports.clear()
     }
 

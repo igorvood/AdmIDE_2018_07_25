@@ -329,7 +329,7 @@ public class ADMDialog extends JAddDialog {
                     final List<VBdTableEntity> tables = vBdTableEntityService.findByTypeObjectCodeIn("TABLE");
                     final GenerateFiles generateFiles = LoadedCTX.getService(GenerateFiles.class);
 
-                    final List<Path> pathList = generateFiles.genFiles(Paths.get("C:\\Temp\\1"), tables, TypeOfGenClass.values());
+                    final List<Path> pathList = generateFiles.genFiles(Paths.get("C:\\temp\\test\\demo\\src\\main\\kotlin"), tables, TypeOfGenClass.values());
                     System.out.println(pathList);
                 }
 

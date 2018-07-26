@@ -1,10 +1,12 @@
 package ru.vood.admplugin.infrastructure.generateCode.impl
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Component
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenAnnitationFieldsServiceKT
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenFieldsServiceKT
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddJavaClassToImport
+import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddJavaClassToImportService
 import ru.vood.admplugin.infrastructure.spring.entity.VBdColumnsEntity
 import ru.vood.admplugin.infrastructure.spring.entity.VBdTableEntity
 import ru.vood.admplugin.infrastructure.spring.except.ApplicationException
@@ -20,7 +22,8 @@ class GenFieldsImplKT(@Autowired
                       val genAnnotationFieldsService: GenAnnitationFieldsServiceKT,
 
                       @Autowired
-                      val addJavaClass: AddJavaClassToImport) : GenFieldsServiceKT {
+                      @Qualifier("addJavaClassToImport")
+                      val addJavaClass: AddJavaClassToImportService) : GenFieldsServiceKT {
 
     override fun genCode(entity: VBdColumnsEntity, typeOfGenClass: TypeOfGenClass): StringBuilder {
         val code = StringBuilder()
@@ -59,22 +62,5 @@ class GenFieldsImplKT(@Autowired
                 }
                 else -> throw ApplicationException("Невозможно преобразовать тип колонки ${col.typeValue.typeObject.code} ")
             }
-
-
-    @Deprecated("dfasd")
-    private fun genCodeTypeField(entity: VBdColumnsEntity): StringBuilder {
-        val code = StringBuilder()
-        when (entity.typeColomn) {
-            ObjectTypes.getBOOLEAN() -> code.append(" boolean ")
-            ObjectTypes.getDATE() -> code.append(" Date ")
-            ObjectTypes.getSTRING() -> code.append(" String ")
-            ObjectTypes.getNUMBER() -> code.append(" BigDecimal ")
-            ObjectTypes.getREFERENCE() -> code.append(genCodeCommonFunction.getFullClassName(entity.typeValue, TypeOfGenClass.ENTITY_CLASS))
-            ObjectTypes.getARRAY() -> code.append(" BigDecimal ")
-            else -> code.append("genCodeTypeField: НЕ предусмотерна обработка ${entity.typeColomn}")
-        }
-
-        return code
-    }
 
 }

@@ -1,9 +1,10 @@
 package ru.vood.admplugin.infrastructure.generateCode.impl
 
-enum class TypeOfGenClass(val nameClass: String/*, val pack: String*/) {
-    ENTITY_CLASS("Entity"),
-    IMPL_CLASS("Impl"),
-    SERVICE_CLASS("Service");
+enum class TypeOfGenClass(val nameClass: String, val comment: String) {
+    ENTITY_CLASS("Entity", "Сущность"),
+    IMPL_CLASS("Impl", "Репозиторий"),
+    SERVICE_CLASS("Service", "Интерфейс"),
+    REPOSITORY_CLASS("Repository", "Репозиторий");
 
     override fun toString(): String {
         return "$nameClass"
