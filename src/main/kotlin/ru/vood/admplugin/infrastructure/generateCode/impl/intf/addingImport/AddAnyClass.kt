@@ -8,7 +8,7 @@ import ru.vood.admplugin.infrastructure.spring.entity.VBdObjectEntity
 import ru.vood.admplugin.infrastructure.tune.PluginTunes
 
 @Component
-open class AddAnyClass() : AddAnyClassService {
+open class AddAnyClass : AddAnyClassService {
 
     @Autowired
     protected lateinit var pluginTunes: PluginTunes
@@ -17,13 +17,14 @@ open class AddAnyClass() : AddAnyClassService {
     protected lateinit var genCodeCommonFunctionKT: GenCodeCommonFunctionKT
 
 
-    override fun getFullNameClass(entity: VBdObjectEntity,typeOfGenClass: TypeOfGenClass): String {
-        val clName = genCodeCommonFunctionKT.getClassName(entity,typeOfGenClass)
-        val pack=genCodeCommonFunctionKT.getPackageName(typeOfGenClass)
+    override fun getFullNameClass(entity: VBdObjectEntity, typeOfGenClass: TypeOfGenClass): String {
+        val clName = genCodeCommonFunctionKT.getClassName(entity, typeOfGenClass)
+        val pack = genCodeCommonFunctionKT.getPackageName(typeOfGenClass)
         return "${pack}.${clName}"
     }
 
-    override fun getCode(entity: VBdObjectEntity,typeOfGenClass: TypeOfGenClass): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getCode(entity: VBdObjectEntity, typeOfGenClass: TypeOfGenClass): String {
+        return genCodeCommonFunctionKT.getClassName(entity, typeOfGenClass).toString()
+
     }
 }
