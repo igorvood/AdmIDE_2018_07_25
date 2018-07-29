@@ -38,8 +38,9 @@ class GenNameClass(@Autowired
         if (typeOfGenClass == TypeOfGenClass.REPOSITORY_CLASS) {
             addJavaClassToImport.getCode(CrudRepository::class.java)
             addJavaClassToImport.getCode(BigDecimal::class.java)
+            addAnyClassService.getCode(entity, TypeOfGenClass.ENTITY_CLASS)
             extend.append(" : ")
-                    .append("CrudRepository<${genCodeCommonFunction.getClassName(entity, typeOfGenClass)}, BigDecimal>")
+                    .append("CrudRepository<${genCodeCommonFunction.getClassName(entity, TypeOfGenClass.ENTITY_CLASS)}, BigDecimal>")
         }
 
         val clazz = "/* ${typeOfGenClass.comment} для таблицы БД - ${entity.name} */\n" +

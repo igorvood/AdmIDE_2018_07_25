@@ -5,7 +5,7 @@ import java.lang.reflect.Type
 
 class WrappedType(val bdClass: VBdObjectEntity, val wrapperClass: WrapperClass = WrapperClass.NO_WRAPPER) {
 
-    lateinit var type: Type
+     var type: Type?=null
 
     constructor(type: Type, wrapperClass: WrapperClass = WrapperClass.NO_WRAPPER) : this(VBdObjectEntity(), wrapperClass) {
         this.type = type

@@ -6,6 +6,7 @@ import com.jeeconf.hibernate.performancetuning.sqltracker.QueryCountInfoHolder.g
 import org.junit.Before
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.GenericApplicationContext
+import org.springframework.context.support.GenericXmlApplicationContext
 import org.springframework.test.context.TestExecutionListeners
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener
 import org.springframework.test.context.transaction.AfterTransaction
@@ -38,7 +39,7 @@ abstract class BaseTest {
     protected lateinit var vBdObjectEntityParentTable: VBdObjectEntity
 
     protected lateinit var tableEntity: VBdTableEntity
-    var tabName = "CODE_TABLE"
+    var tabName = "CLIENT_ORG"
 
     protected lateinit var tableEntityWithParent: VBdTableEntity
     protected var tabNameWithParent = "CODE_TABLE_WITH_PARENT"
@@ -55,8 +56,10 @@ abstract class BaseTest {
         AssertSqlCount.reset()
 
         //ctx = AnnotationConfigApplicationContext(AdmpluginApplication::class.java)
+        ctx = GenericXmlApplicationContext()
+
         if (!ctx.isRunning) {
-            //ctx.load("classpath:spring-config.xml")
+            (ctx as GenericXmlApplicationContext).load("classpath:spring-config.xml")
             ctx.refresh()
             em = ctx.getBean(EntityManager::class.java)
         }

@@ -6,6 +6,7 @@ import ru.vood.admplugin.infrastructure.generateCode.impl.GenCodeCommonFunctionK
 import ru.vood.admplugin.infrastructure.generateCode.impl.TypeOfGenClass
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddAnyClass
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddJavaClassToImportService
+import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.Message.AddingClassPublisher
 import ru.vood.admplugin.infrastructure.spring.entity.VBdObjectEntity
 import java.lang.reflect.Type
 
@@ -21,19 +22,27 @@ class GenerateType : GenerateTypeService /*(val clazz: VBdObjectEntity, val wrap
     @Autowired
     lateinit var addJavaClassToImport: AddJavaClassToImportService
 
-    override fun getCode(wrappedType: WrappedType) =
-            if (wrappedType.type == null) getCode(wrappedType.bdClass, wrappedType.wrapperClass)
-            else getCode(wrappedType.type, wrappedType.wrapperClass)
+    @Autowired
+    protected lateinit var addingClassPublisher: AddingClassPublisher
 
 
-    fun getCode(clazz: Type, wrapperClass: WrapperClass): StringBuilder {
+    override fun getCode(wrappedType: WrappedType): StringBuilder {
+        addingClassPublisher.publish(this, wrappedType.wrapperClass.type)
+        return if (wrappedType.type == null) getCode(wrappedType.bdClass, wrappedType.wrapperClass)
+        else getCode(wrappedType.type!!, wrappedType.wrapperClass)
+    }
+
+
+    private fun getCode(clazz: Type, wrapperClass: WrapperClass): StringBuilder {
+        addingClassPublisher.publish(this, clazz)
         val cl = StringBuilder(addJavaClassToImport.getCode(clazz))
         return wrap(cl, wrapperClass)
     }
 
     private fun getCode(clazz: VBdObjectEntity, wrapperClass: WrapperClass): StringBuilder {
-        addAnyClass.getCode(clazz, TypeOfGenClass.ENTITY_CLASS)
-        val c = genCodeCommonFunctionKT.genFieldName(clazz).append(TypeOfGenClass.ENTITY_CLASS)
+        val fullClassName = genCodeCommonFunctionKT.getFullClassName(clazz).toString()
+        addingClassPublisher.publish(this, fullClassName)
+        val c = genCodeCommonFunctionKT.getClassName(clazz)//.append(TypeOfGenClass.ENTITY_CLASS)
         return wrap(c, wrapperClass)
     }
 

@@ -2,6 +2,8 @@ package ru.vood.admplugin.infrastructure.generateCode.impl
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import org.springframework.stereotype.Repository
+import org.springframework.stereotype.Service
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenAnnotationClassServiceKT
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddAnnotationClass
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.ParamOfAnnotation
@@ -11,6 +13,7 @@ import javax.persistence.Entity
 import javax.persistence.Inheritance
 import javax.persistence.InheritanceType
 import javax.persistence.Table
+import javax.transaction.Transactional
 
 @Component
 class GenAnnotationClassImplKT(@Autowired
@@ -23,6 +26,11 @@ class GenAnnotationClassImplKT(@Autowired
     override fun genCode(entity: VBdTableEntity, typeOfGenClass: TypeOfGenClass): StringBuilder {
         val code = StringBuilder("")
         if (typeOfGenClass == TypeOfGenClass.ENTITY_CLASS) code.append(genCodeEntity(entity))
+        if (typeOfGenClass == TypeOfGenClass.IMPL_CLASS) {
+            code.append(addAnnotationClass.getCode(Service::class.java))
+            code.append(addAnnotationClass.getCode(Repository::class.java))
+            code.append(addAnnotationClass.getCode(Transactional::class.java))
+        }
         return code
     }
 

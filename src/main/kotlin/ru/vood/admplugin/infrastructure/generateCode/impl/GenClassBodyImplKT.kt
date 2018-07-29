@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Component
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenClassBodyServiceKT
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenFieldsServiceKT
+import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addMetod.generateServiceBody.GenerateServiceBodyService
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddAnnotationClass
-import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddJavaClassToImport
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddJavaClassToImportService
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.ParamOfAnnotation
 import ru.vood.admplugin.infrastructure.spring.entity.VBdTableEntity
@@ -32,6 +32,18 @@ class GenClassBodyImplKT(@Autowired
                          @Autowired
                          @Qualifier("addJavaClassToImport")
                          val addJavaClass: AddJavaClassToImportService) : GenClassBodyServiceKT {
+
+    @Autowired
+    @Qualifier("generateServiceBodyKotlinCode")
+    lateinit var generateServiceBodyService: GenerateServiceBodyService
+
+    @Autowired
+    @Qualifier("generateImplementationBodyKotlinCode")
+    lateinit var generateImplementationBodyKotlinCode: GenerateServiceBodyService
+
+    @Autowired
+    @Qualifier("generateRepositoryBodyKotlinCode")
+    lateinit var generateRepositoryBodyKotlinCode: GenerateServiceBodyService
 
 
     private fun genCodeEntiy(entity: VBdTableEntity): StringBuilder {
@@ -72,7 +84,14 @@ class GenClassBodyImplKT(@Autowired
     @JvmOverloads
     override fun genCode(entity: VBdTableEntity, typeOfGenClass: TypeOfGenClass): StringBuilder {
         val code = StringBuilder()
-        return if (typeOfGenClass == TypeOfGenClass.ENTITY_CLASS) genCodeEntiy(entity) else code
+        return when (typeOfGenClass) {
+            TypeOfGenClass.ENTITY_CLASS -> genCodeEntiy(entity)
+            TypeOfGenClass.SERVICE_CLASS -> generateServiceBodyService.genCode(entity, typeOfGenClass)
+            TypeOfGenClass.IMPL_CLASS -> generateImplementationBodyKotlinCode.genCode(entity, typeOfGenClass)
+            TypeOfGenClass.REPOSITORY_CLASS -> generateRepositoryBodyKotlinCode.genCode(entity, typeOfGenClass)
+            else -> code
+        }
+
     }
 
 

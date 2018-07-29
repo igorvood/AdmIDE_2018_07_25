@@ -1,6 +1,5 @@
 package ru.vood.admplugin.infrastructure.generateCode.impl.intf.addMetod
 
-import com.sun.org.apache.xpath.internal.operations.String
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
@@ -14,7 +13,8 @@ class GenerateMethodImpl : GenerateMethodService {
                 .map { inParam -> genInParametrWithType(inParam.value, inParam.key) }
                 .reduce { s1, s2 -> s1.append(" , ").append(s2) }
 
-        return reduce
+        val ret = StringBuilder().append(" fun ${nameMethod} (${reduce}) : ${generateTypeService.getCode(retType)}")
+        return ret
     }
 
     private fun genInParametrWithType(inParametr: WrappedType, nameParametr: kotlin.String): StringBuilder {
