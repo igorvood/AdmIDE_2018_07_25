@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Component
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenAnnitationFieldsServiceKT
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenFieldsServiceKT
-import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddJavaClassToImport
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddJavaClassToImportService
 import ru.vood.admplugin.infrastructure.spring.entity.VBdColumnsEntity
 import ru.vood.admplugin.infrastructure.spring.entity.VBdTableEntity

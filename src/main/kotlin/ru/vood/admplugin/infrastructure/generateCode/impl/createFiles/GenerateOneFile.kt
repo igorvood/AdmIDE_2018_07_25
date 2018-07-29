@@ -40,7 +40,7 @@ class GenerateOneFile {
     fun getFile(startPath: Path, tableEntity: VBdTableEntity, typeOfGenClass: TypeOfGenClass = TypeOfGenClass.ENTITY_CLASS): Path? {
         val packageName = genCodeCommonFunctionKT.getPackageName(typeOfGenClass)
         val generatedClass = genAnyPartKT.genCode(tableEntity, typeOfGenClass)
-        val path = Paths.get(createDirs(startPath, packageName.toString()).toString() + "\\" + genCodeCommonFunctionKT.getClassName(tableEntity, typeOfGenClass)+".kt")
+        val path = Paths.get(createDirs(startPath, packageName.toString()).toString() + "\\" + genCodeCommonFunctionKT.getClassName(tableEntity, typeOfGenClass) + ".kt")
         val retPath = Files.write(path, generatedClass.lines(), Charset.forName("UTF-8"), StandardOpenOption.CREATE)
         return retPath
     }

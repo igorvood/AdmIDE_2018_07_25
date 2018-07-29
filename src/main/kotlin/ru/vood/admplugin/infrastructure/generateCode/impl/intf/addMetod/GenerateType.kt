@@ -3,7 +3,6 @@ package ru.vood.admplugin.infrastructure.generateCode.impl.intf.addMetod
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import ru.vood.admplugin.infrastructure.generateCode.impl.GenCodeCommonFunctionKT
-import ru.vood.admplugin.infrastructure.generateCode.impl.TypeOfGenClass
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddAnyClass
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddJavaClassToImportService
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.Message.AddingClassPublisher

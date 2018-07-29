@@ -15,7 +15,7 @@ class GenerateDeleteByIdMethod : GenerateSpecificMethodService {
 
     override fun genCode(bdClass: VBdObjectEntity, typeOfGenClass: TypeOfGenClass): StringBuilder {
         val wrappedType = WrappedType(BigDecimal::class.java, WrapperClass.NO_WRAPPER)
-        val wrappedTypeRet= WrappedType(Unit::class.java, WrapperClass.NO_WRAPPER)
+        val wrappedTypeRet = WrappedType(Unit::class.java, WrapperClass.NO_WRAPPER)
         return generateSimpleMethodService.genCode(bdClass, typeOfGenClass, "deleteById", wrappedTypeRet, wrappedType)
     }
 }
