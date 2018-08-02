@@ -28,6 +28,7 @@ public class VBdIndexEntity extends VBdObjectEntity {
 //    @JoinColumn(table = "VBdIndexedColumnsEntity", name = "VBdIndexedColumnsEntity", referencedColumnName = "columns")
 /*    @OneToMany//(mappedBy = "collectionId", fetch = FetchType.EAGER)
     @JoinColumn(name = "COLUMNS", referencedColumnName = COLLECTION)*/
+//@LazyCollection()
     @Transient
     private List<VBdIndexedColumnsEntity> colomnsEntities;
 

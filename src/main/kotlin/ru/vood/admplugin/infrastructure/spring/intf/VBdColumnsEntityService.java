@@ -17,6 +17,13 @@ public interface VBdColumnsEntityService /*extends  ParentForAllServise/*extends
     VBdColumnsEntity findColomn(VBdTableEntity parent, String code) throws CoreExeption;
 
     List<VBdColumnsEntity> findAllByParent(VBdTableEntity parent);
-    //List<VBdObjectEntity> findByTypeObjectCodeIn(String... codeS);
+    //List<VBdObjectEntity> findByTypeObjectCodeIn(String... codeS
 
+    /**
+     * поиск колонок являющимися ссылками на указанный тип
+     *
+     * @param entity
+     * @return
+     */
+    List<VBdColumnsEntity> findColumnRefIn(VBdTableEntity entity);
 }

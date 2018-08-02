@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Component
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenClassBodyServiceKT
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenFieldsServiceKT
+import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenTransientFieldsServiceKT
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addMetod.generateServiceBody.GenerateServiceBodyService
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddAnnotationClass
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddJavaClassToImportService
@@ -45,17 +46,28 @@ class GenClassBodyImplKT(@Autowired
     @Qualifier("generateRepositoryBodyKotlinCode")
     lateinit var generateRepositoryBodyKotlinCode: GenerateServiceBodyService
 
+    @Autowired
+    lateinit var vBdColumnsEntityService: VBdColumnsEntityService
+
+    @Autowired
+    lateinit var genTransientFieldsServiceKT: GenTransientFieldsServiceKT
+
 
     private fun genCodeEntiy(entity: VBdTableEntity): StringBuilder {
         val code = StringBuilder()
         if (genCodeCommonFunction.isRootEntity(entity)) {
             code.append(getIdField())
         }
-
         val columnsEntities = columnsEntityService.findByParent(entity)
-
+        //создание обычных полей
         for (column in columnsEntities) {
             code.append(genFieldsService.genCode(column, TypeOfGenClass.ENTITY_CLASS))
+        }
+        //создание Transient полей, напрмер для обратных ссылок
+        val columnRefInCurrentEntity = vBdColumnsEntityService.findColumnRefIn(entity)
+
+        for (trancientColumn in columnRefInCurrentEntity) {
+            code.append(genTransientFieldsServiceKT.genCode(trancientColumn))
         }
 
         return code
@@ -81,7 +93,7 @@ class GenClassBodyImplKT(@Autowired
         return res
     }
 
-    @JvmOverloads
+
     override fun genCode(entity: VBdTableEntity, typeOfGenClass: TypeOfGenClass): StringBuilder {
         val code = StringBuilder()
         return when (typeOfGenClass) {

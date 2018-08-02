@@ -1,13 +1,13 @@
 package ru.vood.admplugin.infrastructure.spring.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import ru.vood.admplugin.infrastructure.spring.entity.VBdColumnsEntity;
 import ru.vood.admplugin.infrastructure.spring.entity.VBdTableEntity;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface VBdColomnsEntityRepository extends CrudRepository<VBdColumnsEntity, BigDecimal> {
+public interface VBdColomnsEntityRepository extends JpaRepository<VBdColumnsEntity, BigDecimal> {
 
 
     //------------------------------individual-----------------------------

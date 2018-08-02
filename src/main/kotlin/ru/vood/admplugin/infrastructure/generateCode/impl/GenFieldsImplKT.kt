@@ -3,7 +3,7 @@ package ru.vood.admplugin.infrastructure.generateCode.impl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Component
-import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenAnnitationFieldsServiceKT
+import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenAnnotationFieldsServiceKT
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenFieldsServiceKT
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddJavaClassToImportService
 import ru.vood.admplugin.infrastructure.spring.entity.VBdColumnsEntity
@@ -18,7 +18,7 @@ class GenFieldsImplKT(@Autowired
                       val genCodeCommonFunction: GenCodeCommonFunctionKT,
 
                       @Autowired
-                      val genAnnotationFieldsService: GenAnnitationFieldsServiceKT,
+                      val genAnnotationFieldsService: GenAnnotationFieldsServiceKT,
 
                       @Autowired
                       @Qualifier("addJavaClassToImport")

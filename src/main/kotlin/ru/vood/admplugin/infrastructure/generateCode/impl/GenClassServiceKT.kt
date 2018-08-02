@@ -9,23 +9,23 @@ import ru.vood.admplugin.infrastructure.spring.entity.VBdTableEntity
 
 @Component
 class GenClassServiceKT(@Autowired
-                        val commonFunction: GenCodeCommonFunctionKT,
+                        private val commonFunction: GenCodeCommonFunctionKT,
 
                         @Autowired
                         @Qualifier("genPackageImplKT")
-                        val genPackageImpl: GenAnyPartKT<VBdObjectEntity>,
+                        private val genPackageImpl: GenAnyPartKT<VBdObjectEntity>,
 
                         @Autowired
-                        val genImportService: GenImportServiceKT,
+                        private val genImportService: GenImportServiceKT,
 
                         @Autowired
-                        val classBodyService: GenClassBodyServiceKT,
+                        private val classBodyService: GenClassBodyServiceKT,
 
                         @Autowired
-                        val genAnnotationClassService: GenAnnotationClassServiceKT,
+                        private val genAnnotationClassService: GenAnnotationClassServiceKT,
 
                         @Autowired
-                        val genNameClassService: GenNameClassService
+                        private val genNameClassService: GenNameClassService
 ) : GenAnyPartKT<VBdTableEntity> {
 
 

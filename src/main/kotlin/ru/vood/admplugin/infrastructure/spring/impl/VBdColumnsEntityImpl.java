@@ -9,6 +9,7 @@ import ru.vood.admplugin.infrastructure.spring.entity.VBdTableEntity;
 import ru.vood.admplugin.infrastructure.spring.except.CoreExeption;
 import ru.vood.admplugin.infrastructure.spring.intf.CommonFunctionService;
 import ru.vood.admplugin.infrastructure.spring.intf.VBdColumnsEntityService;
+import ru.vood.admplugin.infrastructure.spring.referenceBook.ObjectTypes;
 import ru.vood.admplugin.infrastructure.spring.repository.VBdColomnsEntityRepository;
 import ru.vood.admplugin.infrastructure.spring.repository.VBdTableEntityRepository;
 
@@ -52,10 +53,10 @@ public class VBdColumnsEntityImpl /*extends VBdObjectEntityImpl /*ParentForAllIm
     public List<VBdColumnsEntity> findAllByParent(VBdTableEntity parent) {
         List<VBdTableEntity> vBdTableEntities = new ArrayList<>();
         vBdTableEntities.add(parent);
-        VBdTableEntity oneTable = vBdTableEntityRepository.findById(parent.getParent().getId()).get();
+        VBdTableEntity oneTable = vBdTableEntityRepository.findById(parent.getParent().getId());//.get();
         while (oneTable != null) {
             vBdTableEntities.add(oneTable);
-            oneTable = vBdTableEntityRepository.findById(oneTable.getParent().getId()).orElse(null);
+            oneTable = vBdTableEntityRepository.findById(oneTable.getParent().getId());//.orElse(null);
         }
         Query query = em.createQuery("select a2 from VBdColumnsEntity a2 " +
                 "  join fetch a2.typeObject a1 " +
@@ -92,6 +93,26 @@ public class VBdColumnsEntityImpl /*extends VBdObjectEntityImpl /*ParentForAllIm
         List list = query.getResultList();
         commonFunctionService.checkOn(list);
         return (VBdColumnsEntity) list.get(0);
+    }
 
+    @Override
+    public List<VBdColumnsEntity> findColumnRefIn(VBdTableEntity entity) {
+/*
+        Query query = em.createQuery("select a1 from VBdColumnsEntity a1, VBdTableEntity tab " +
+                " where a1.typeValue.typeObject = :refType " +
+                " and a1.typeValue = tab" +
+                " and tab.toType = :entity ")
+                .setParameter("refType", ObjectTypes.getREFERENCE())
+                .setParameter("entity", entity);
+*/
+        Query query = em.createQuery("select a1 from VBdColumnsEntity a1" +
+                " join VBdTableEntity tab on a1.typeValue = tab  and tab.toType = :entity " +
+                " join fetch a1.parent a3 " +
+                " where a1.typeValue.typeObject = :refType")
+                .setParameter("refType", ObjectTypes.getREFERENCE())
+                .setParameter("entity", entity);
+
+        final List resultList = query.getResultList();
+        return resultList;
     }
 }

@@ -1,16 +1,15 @@
 package ru.vood.admplugin.infrastructure.spring.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import ru.vood.admplugin.infrastructure.spring.entity.VBdObjectEntity;
 import ru.vood.admplugin.infrastructure.spring.entity.VBdTableEntity;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
-public interface VBdTableEntityRepository extends CrudRepository<VBdTableEntity, BigDecimal> {
+public interface VBdTableEntityRepository extends JpaRepository<VBdTableEntity, BigDecimal> {
 
-    Optional<VBdTableEntity> findById(BigDecimal id);
+    VBdTableEntity findById(BigDecimal id);
 
     //------------------------------individual-----------------------------
 
