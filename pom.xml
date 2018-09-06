@@ -8,14 +8,14 @@
     <artifactId>AdmIDE</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-<!--
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.3.RELEASE</version>
-        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;
-    </parent>
--->
+    <!--
+        <parent>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-parent</artifactId>
+            <version>2.0.3.RELEASE</version>
+            <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;
+        </parent>
+    -->
 
     <properties>
         <hibernate-version>5.2.17.Final</hibernate-version>
@@ -93,12 +93,12 @@
                     <jvmTarget>1.8</jvmTarget>
                 </configuration>
             </plugin>
-<!--
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
--->
+            <!--
+                        <plugin>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-maven-plugin</artifactId>
+                        </plugin>
+            -->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -342,6 +342,11 @@
             <groupId>ru.vood</groupId>
             <artifactId>AdminWebVaadin</artifactId>
             <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.vood</groupId>
+            <artifactId>admJavaModules</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>

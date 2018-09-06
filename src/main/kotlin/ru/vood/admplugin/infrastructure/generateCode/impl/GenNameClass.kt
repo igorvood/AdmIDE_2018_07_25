@@ -7,6 +7,7 @@ import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenNameClassServi
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddAnyClassService
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddJavaClassToImport
 import ru.vood.admplugin.infrastructure.spring.entity.VBdTableEntity
+import ru.vood.amdWeb.util.EntityInterface
 import ru.vood.amdWeb.util.abstraction.AbstractEditorKT
 import ru.vood.amdWeb.util.abstraction.AbstractGridKT
 import ru.vood.amdWeb.util.abstraction.RepositoryForView
