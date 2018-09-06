@@ -33,6 +33,9 @@ class GenerateImplementationBodyKotlinCode : GenerateServiceBodyService {
     @Qualifier("generateFindByIdMethod")
     lateinit var generateFindByIdMethod: GenerateSpecificMethodService
 
+    @Autowired
+    @Qualifier("generateFindAllMethod")
+    lateinit var generateFindAllMethod: GenerateSpecificMethodService
 
     @Autowired
     lateinit var genCodeCommonFunctionKT: GenCodeCommonFunctionKT
@@ -56,17 +59,19 @@ class GenerateImplementationBodyKotlinCode : GenerateServiceBodyService {
         ret.append(generateDeleteAllMethod.genCode(entity, typeOfGenClass).append("\n\n"))
 
         ret.append(generateFindByIdMethod.genCode(entity, typeOfGenClass).append("\n\n"))
+        ret.append(generateFindAllMethod.genCode(entity, typeOfGenClass).append("\n\n"))
 
         return ret
     }
 
     private fun genFields(entity: VBdObjectEntity): StringBuilder {
         val ret = StringBuilder()
-        addAnyClassService.getCode(entity, TypeOfGenClass.REPOSITORY_CLASS)
+        addAnyClassService.getCode(entity, TypeOfGenClass.SERVICE_CLASS)
         ret.append(addAnnotationClass.getCode(Autowired::class.java))
         ret.append("lateinit var ")
-        ret.append(genCodeCommonFunctionKT.getParametrName(entity, TypeOfGenClass.REPOSITORY_CLASS)).append(" : ")
-        ret.append(genCodeCommonFunctionKT.getClassName(entity, TypeOfGenClass.REPOSITORY_CLASS)).append("\n\n")
+        ret.append(genCodeCommonFunctionKT.getParametrName(entity, TypeOfGenClass.SERVICE_CLASS)).append(" : ")
+        ret.append(genCodeCommonFunctionKT.getClassName(entity, TypeOfGenClass.SERVICE_CLASS)).append("\n\n")
+
         return ret
     }
 

@@ -31,16 +31,22 @@ class GenerateServiceBodyKotlinCode : GenerateServiceBodyService {
     @Qualifier("generateFindByIdMethod")
     lateinit var generateFindByIdMethod: GenerateSpecificMethodService
 
+    @Autowired
+    @Qualifier("generateFindAllMethod")
+    lateinit var generateFindAllMethod: GenerateSpecificMethodService
+
 
     override fun genCode(entity: VBdObjectEntity, typeOfGenClass: TypeOfGenClass): StringBuilder {
-        val ret = generateSaveMethod.genCode(entity, typeOfGenClass).append("\n\n")
+        val ret = StringBuilder()
+        ret.append(generateSaveMethod.genCode(entity, typeOfGenClass).append("\n\n"))
         ret.append(generateSaveListMethod.genCode(entity, typeOfGenClass).append("\n\n"))
 
-        ret.append(generateDeleteMethod.genCode(entity, typeOfGenClass).append("\n\n"))
+        //ret.append(generateDeleteMethod.genCode(entity, typeOfGenClass).append("\n\n"))
         ret.append(generateDeleteByIdMethod.genCode(entity, typeOfGenClass).append("\n\n"))
         ret.append(generateDeleteAllMethod.genCode(entity, typeOfGenClass).append("\n\n"))
 
-        ret.append(generateFindByIdMethod.genCode(entity, typeOfGenClass).append("\n\n"))
+        //ret.append(generateFindByIdMethod.genCode(entity, typeOfGenClass).append("\n\n"))
+        //ret.append(generateFindAllMethod.genCode(entity, typeOfGenClass).append("\n\n"))
 
         return ret
     }

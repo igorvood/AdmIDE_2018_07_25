@@ -1,5 +1,8 @@
 package ru.vood.admplugin.infrastructure.generateCode.impl
 
+import com.vaadin.flow.router.Route
+import com.vaadin.flow.spring.annotation.SpringComponent
+import com.vaadin.flow.spring.annotation.UIScope
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import org.springframework.stereotype.Repository
@@ -30,6 +33,18 @@ class GenAnnotationClassImplKT(@Autowired
             code.append(addAnnotationClass.getCode(Service::class.java))
             code.append(addAnnotationClass.getCode(Repository::class.java))
             code.append(addAnnotationClass.getCode(Transactional::class.java))
+        }
+        if (typeOfGenClass == TypeOfGenClass.EDITOR_CLASS) {
+            code.append(addAnnotationClass.getCode(SpringComponent::class.java))
+            code.append(addAnnotationClass.getCode(UIScope::class.java))
+        }
+
+        if (typeOfGenClass == TypeOfGenClass.GRID_CLASS) {
+
+            val paramAnnotation = ParamOfAnnotation()
+            paramAnnotation.put(key = "value", value = "\"" + genCodeCommonFunction.getClassName(entity, TypeOfGenClass.GRID_CLASS) + "\"")
+            code.append(addAnnotationClass.getCode(Route::class.java, paramAnnotation))
+            code.append(addAnnotationClass.getCode(UIScope::class.java))
         }
         return code
     }

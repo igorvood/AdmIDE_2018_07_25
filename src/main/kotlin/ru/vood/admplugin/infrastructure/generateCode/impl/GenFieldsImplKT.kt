@@ -29,9 +29,17 @@ class GenFieldsImplKT(@Autowired
         if (typeOfGenClass == TypeOfGenClass.ENTITY_CLASS) {
             code.append("/*Наименование поля - ${entity.name}*/\n")
             code.append(genAnnotationFieldsService.genCode(entity, typeOfGenClass))
-            code.append("lateinit var ")
+            code.append("private lateinit var ")
             code.append(genCodeCommonFunction.genFieldName(entity).toString()).append(" : ")
             code.append(genColumnClass(entity)).append("\n\n")
+        }
+
+        if (typeOfGenClass == TypeOfGenClass.EDITOR_CLASS) {
+            if (entity.typeColomn == ObjectTypes.getREFERENCE()) {
+                code.append("private lateinit var ")
+                code.append(genCodeCommonFunction.genFieldName(entity).toString()).append(" : ")
+                code.append(genCodeCommonFunction.getClassName(entity.typeValue)).append("\n\n")
+            }
         }
         return code
     }

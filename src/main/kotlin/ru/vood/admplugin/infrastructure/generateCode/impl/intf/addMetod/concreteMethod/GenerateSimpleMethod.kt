@@ -17,9 +17,13 @@ class GenerateSimpleMethod : GenerateSimpleMethodService {
     @Autowired
     lateinit var genCodeCommonFunctionKT: GenCodeCommonFunctionKT
 
-    override fun genCode(bdClass: VBdObjectEntity, typeOfGenClass: TypeOfGenClass, nameMethod: String, retType: WrappedType, inType: WrappedType): StringBuilder {
-        val nameParam = "entity"
-        val innerParameters = InnerParameters().addOne(nameParam, inType)
+    override fun genCode(bdClass: VBdObjectEntity, typeOfGenClass: TypeOfGenClass, nameMethod: String, retType: WrappedType, inType: WrappedType?): StringBuilder {
+        val nameParam = StringBuilder()
+        val innerParameters = InnerParameters()
+        if (inType != null) {
+            nameParam.append("entity")
+            innerParameters.addOne(nameParam.toString(), inType)
+        }
 
         var headMethod =
                 when (typeOfGenClass) {
@@ -28,7 +32,7 @@ class GenerateSimpleMethod : GenerateSimpleMethodService {
                     else -> StringBuilder()
                 }
 
-        val autowiredParameter = genCodeCommonFunctionKT.getParametrName(bdClass, TypeOfGenClass.REPOSITORY_CLASS)
+        val autowiredParameter = genCodeCommonFunctionKT.getParametrName(bdClass, TypeOfGenClass.SERVICE_CLASS)
 
         val bodyMeth = when (typeOfGenClass) {
             TypeOfGenClass.IMPL_CLASS -> StringBuilder()

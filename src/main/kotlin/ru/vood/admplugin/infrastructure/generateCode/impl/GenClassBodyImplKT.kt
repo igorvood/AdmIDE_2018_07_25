@@ -47,13 +47,17 @@ class GenClassBodyImplKT(@Autowired
     lateinit var generateRepositoryBodyKotlinCode: GenerateServiceBodyService
 
     @Autowired
+    @Qualifier("generateEditorBodyKotlinCode")
+    lateinit var generateEditorBodyKotlinCode: GenerateServiceBodyService
+
+    @Autowired
     lateinit var vBdColumnsEntityService: VBdColumnsEntityService
 
     @Autowired
     lateinit var genTransientFieldsServiceKT: GenTransientFieldsServiceKT
 
 
-    private fun genCodeEntiy(entity: VBdTableEntity): StringBuilder {
+    private fun genCodeEntity(entity: VBdTableEntity): StringBuilder {
         val code = StringBuilder()
         if (genCodeCommonFunction.isRootEntity(entity)) {
             code.append(getIdField())
@@ -70,10 +74,13 @@ class GenClassBodyImplKT(@Autowired
             code.append(genTransientFieldsServiceKT.genCode(trancientColumn))
         }
 
+        if (genCodeCommonFunction.isRootEntity(entity)) {
+            code.append("\noverride fun getId() = id\n")
+        }
         return code
     }
 
-    private fun getIdField(): StringBuilder {
+    private inline fun getIdField(): StringBuilder {
         val res = StringBuilder()
         val param = ParamOfAnnotation()
         res.append("/*Уникальный Идентификатор*/\n")
@@ -89,7 +96,7 @@ class GenClassBodyImplKT(@Autowired
         res.append(addAnnotationClass.getCode(GeneratedValue::class.java, param))
 
         addJavaClass.getCode(BigDecimal::class.java)
-        res.append("lateinit var id :  BigDecimal\n\n")
+        res.append("private lateinit var id :  BigDecimal\n\n")
         return res
     }
 
@@ -97,10 +104,11 @@ class GenClassBodyImplKT(@Autowired
     override fun genCode(entity: VBdTableEntity, typeOfGenClass: TypeOfGenClass): StringBuilder {
         val code = StringBuilder()
         return when (typeOfGenClass) {
-            TypeOfGenClass.ENTITY_CLASS -> genCodeEntiy(entity)
+            TypeOfGenClass.ENTITY_CLASS -> genCodeEntity(entity)
             TypeOfGenClass.SERVICE_CLASS -> generateServiceBodyService.genCode(entity, typeOfGenClass)
             TypeOfGenClass.IMPL_CLASS -> generateImplementationBodyKotlinCode.genCode(entity, typeOfGenClass)
             TypeOfGenClass.REPOSITORY_CLASS -> generateRepositoryBodyKotlinCode.genCode(entity, typeOfGenClass)
+            TypeOfGenClass.EDITOR_CLASS -> generateEditorBodyKotlinCode.genCode(entity, typeOfGenClass)
             else -> code
         }
 

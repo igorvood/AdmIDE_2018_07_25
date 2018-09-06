@@ -1,12 +1,15 @@
 package ru.vood.admplugin.infrastructure.generateCode.impl
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.repository.CrudRepository
+import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Component
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenNameClassService
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddAnyClassService
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddJavaClassToImport
 import ru.vood.admplugin.infrastructure.spring.entity.VBdTableEntity
+import ru.vood.amdWeb.util.abstraction.AbstractEditorKT
+import ru.vood.amdWeb.util.abstraction.AbstractGridKT
+import ru.vood.amdWeb.util.abstraction.RepositoryForView
 import java.math.BigDecimal
 
 @Component
@@ -24,23 +27,79 @@ class GenNameClass(@Autowired
             TypeOfGenClass.IMPL_CLASS -> predicate = "open class "
             TypeOfGenClass.SERVICE_CLASS -> predicate = "interface "
             TypeOfGenClass.REPOSITORY_CLASS -> predicate = "interface "
+            TypeOfGenClass.EDITOR_CLASS -> predicate = "class "
+            TypeOfGenClass.GRID_CLASS -> predicate = "class "
         }
-        if (!genCodeCommonFunction.isRootEntity(entity) && typeOfGenClass == TypeOfGenClass.ENTITY_CLASS)
-            extend.append(genCodeCommonFunction.getExtendsClassName(entity, typeOfGenClass))
 
 
+        if (typeOfGenClass == TypeOfGenClass.ENTITY_CLASS) {
+
+
+        }
+        //Формирование класса родителя для сущности
+        if (typeOfGenClass == TypeOfGenClass.ENTITY_CLASS) {
+            if (!genCodeCommonFunction.isRootEntity(entity))
+                extend.append(genCodeCommonFunction.getExtendsClassName(entity, typeOfGenClass))
+            else {
+                addJavaClassToImport.getCode(EntityInterface::class.java)
+                extend.append(": EntityInterface ")
+            }
+        }
+
+
+        //Формирование класса родителя для имплементации сервиса
         if (typeOfGenClass == TypeOfGenClass.IMPL_CLASS) {
             extend.append(" : ")
                     .append(addAnyClassService.getFullNameClass(entity, TypeOfGenClass.SERVICE_CLASS))
         }
 
-
-        if (typeOfGenClass == TypeOfGenClass.REPOSITORY_CLASS) {
-            addJavaClassToImport.getCode(CrudRepository::class.java)
+        //Формирование класса родителя для класса сервиса
+        if (typeOfGenClass == TypeOfGenClass.SERVICE_CLASS) {
+            addJavaClassToImport.getCode(RepositoryForView::class.java)
             addJavaClassToImport.getCode(BigDecimal::class.java)
             addAnyClassService.getCode(entity, TypeOfGenClass.ENTITY_CLASS)
             extend.append(" : ")
-                    .append("CrudRepository<${genCodeCommonFunction.getClassName(entity, TypeOfGenClass.ENTITY_CLASS)}, BigDecimal>")
+                    .append("RepositoryForView<${genCodeCommonFunction.getClassName(entity, TypeOfGenClass.ENTITY_CLASS)}, BigDecimal>")
+        }
+
+
+        //Формирование класса родителя для класса репозитория
+        if (typeOfGenClass == TypeOfGenClass.REPOSITORY_CLASS) {
+            addJavaClassToImport.getCode(JpaRepository::class.java)
+            addJavaClassToImport.getCode(BigDecimal::class.java)
+            addAnyClassService.getCode(entity, TypeOfGenClass.ENTITY_CLASS)
+            extend.append(" : ")
+                    .append("JpaRepository<${genCodeCommonFunction.getClassName(entity, TypeOfGenClass.ENTITY_CLASS)}, BigDecimal>")
+        }
+
+        //Формирование класса родителя для класса редактора
+        if (typeOfGenClass == TypeOfGenClass.EDITOR_CLASS) {
+            addAnyClassService.getCode(entity, TypeOfGenClass.ENTITY_CLASS)
+            addAnyClassService.getCode(entity, TypeOfGenClass.SERVICE_CLASS)
+            addJavaClassToImport.getCode(AbstractEditorKT::class.java)
+            extend.append(" : ")
+                    .append("AbstractEditorKT<")
+                    .append(genCodeCommonFunction.getClassName(entity, TypeOfGenClass.ENTITY_CLASS))
+                    .append(", ")
+                    .append(genCodeCommonFunction.getClassName(entity, TypeOfGenClass.SERVICE_CLASS))
+                    .append(">")
+        }
+
+        //Формирование класса родителя для класса таблицы
+        if (typeOfGenClass == TypeOfGenClass.GRID_CLASS) {
+            addAnyClassService.getCode(entity, TypeOfGenClass.ENTITY_CLASS)
+            addAnyClassService.getCode(entity, TypeOfGenClass.SERVICE_CLASS)
+            addAnyClassService.getCode(entity, TypeOfGenClass.EDITOR_CLASS)
+            addJavaClassToImport.getCode(AbstractGridKT::class.java)
+
+            extend.append(" : ")
+                    .append("AbstractGridKT<")
+                    .append(genCodeCommonFunction.getClassName(entity, TypeOfGenClass.ENTITY_CLASS))
+                    .append(", ")
+                    .append(genCodeCommonFunction.getClassName(entity, TypeOfGenClass.SERVICE_CLASS))
+                    .append(", ")
+                    .append(genCodeCommonFunction.getClassName(entity, TypeOfGenClass.EDITOR_CLASS))
+                    .append(">")
         }
 
         val clazz = "/* ${typeOfGenClass.comment} для таблицы БД - ${entity.name} */\n" +

@@ -9,15 +9,17 @@ class GenerateMethodImpl : GenerateMethodService {
     lateinit var generateTypeService: GenerateTypeService
 
     override fun genCode(retType: WrappedType, nameMethod: String, innerParameters: InnerParameters): StringBuilder {
-        val reduce = innerParameters.asSequence()
-                .map { inParam -> genInParametrWithType(inParam.value, inParam.key) }
-                .reduce { s1, s2 -> s1.append(" , ").append(s2) }
+        val reduce = StringBuilder()
+        if (innerParameters.size > 0)
+            reduce.append(innerParameters.asSequence()
+                    .map { inParam -> genInParameterWithType(inParam.value, inParam.key) }
+                    .reduce { s1, s2 -> s1.append(" , ").append(s2) })
 
         val ret = StringBuilder().append(" fun ${nameMethod} (${reduce}) : ${generateTypeService.getCode(retType)}")
         return ret
     }
 
-    private fun genInParametrWithType(inParametr: WrappedType, nameParametr: kotlin.String): StringBuilder {
+    private fun genInParameterWithType(inParametr: WrappedType, nameParametr: kotlin.String): StringBuilder {
         val ret = StringBuilder().append(nameParametr)
                 .append(" : ")
                 .append(generateTypeService.getCode(inParametr))
