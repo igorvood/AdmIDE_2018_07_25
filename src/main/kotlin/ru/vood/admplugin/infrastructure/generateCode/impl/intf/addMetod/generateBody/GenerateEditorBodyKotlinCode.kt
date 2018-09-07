@@ -1,4 +1,4 @@
-package ru.vood.admplugin.infrastructure.generateCode.impl.intf.addMetod.generateServiceBody
+package ru.vood.admplugin.infrastructure.generateCode.impl.intf.addMetod.generateBody
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component

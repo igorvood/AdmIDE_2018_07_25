@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenClassBodyServiceKT
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenFieldsServiceKT
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenTransientFieldsServiceKT
-import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addMetod.generateServiceBody.GenerateServiceBodyService
+import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addMetod.generateBody.GenerateServiceBodyService
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddAnnotationClass
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.AddJavaClassToImportService
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.ParamOfAnnotation

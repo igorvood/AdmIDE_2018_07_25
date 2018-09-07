@@ -1,4 +1,4 @@
-package ru.vood.admplugin.infrastructure.generateCode.impl.intf.addMetod.concreteMethod
+package ru.vood.admplugin.infrastructure.generateCode.impl.intf.addMetod.generateMethod
 
 import ru.vood.admplugin.infrastructure.generateCode.impl.TypeOfGenClass
 import ru.vood.admplugin.infrastructure.spring.entity.VBdObjectEntity
