@@ -28,7 +28,7 @@ abstract class BaseTest {
 
     protected lateinit var ctx: GenericApplicationContext
     protected lateinit var em: EntityManager
-    protected lateinit var colomnsEntityService: VBdColumnsEntityService
+    protected lateinit var columnsEntityService: VBdColumnsEntityService
     protected lateinit var tableEntityService: VBdTableEntityService
     protected lateinit var indexEntityService: VBdIndexEntityService
     protected lateinit var commonFunctionService: CommonFunctionService
@@ -79,7 +79,7 @@ abstract class BaseTest {
 //*******************************************************
         pluginTunes = ctx.getBean(PluginTunes::class.java)
 
-        colomnsEntityService = ctx.getBean(VBdColumnsEntityService::class.java)
+        columnsEntityService = ctx.getBean(VBdColumnsEntityService::class.java)
         tableEntityService = ctx.getBean(VBdTableEntityService::class.java)
         indexEntityService = ctx.getBean(VBdIndexEntityService::class.java)
         commonFunctionService = ctx.getBean(CommonFunctionService::class.java)

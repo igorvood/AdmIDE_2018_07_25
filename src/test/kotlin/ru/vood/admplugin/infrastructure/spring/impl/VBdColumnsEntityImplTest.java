@@ -27,7 +27,7 @@ public class VBdColumnsEntityImplTest extends BaseTest {
     }
 
     @Test
-    public void findColomn() {
+    public void findColumn() {
     }
 
     @Test
