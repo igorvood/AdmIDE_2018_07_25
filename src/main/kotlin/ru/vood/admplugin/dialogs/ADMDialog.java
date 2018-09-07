@@ -34,8 +34,9 @@ public class ADMDialog extends JAddDialog {
     private JMenuItem menuFileTune;
     private JMenuItem menuFileSave;
     private JMenuItem menuFileLoad;
+    private JMenuItem menuFileLoadOrSave;
     private JMenu menuTools;
-    private JMenuItem menuFileToosRefresh;
+    private JMenuItem menuFileToolsRefresh;
     private JMenuItem menuFileToosFirstLoad;
 
     private JPopupMenu jPopupMenu;
@@ -217,6 +218,16 @@ public class ADMDialog extends JAddDialog {
             });
             menuFile.add(menuFileSave);
 
+            menuFileLoadOrSave = new JMenuItem();
+            menuFileLoadOrSave.setText("Load/Save");
+            menuFileLoadOrSave.addActionListener(ae -> {
+                JAddDialog dialog = new SelectedDialog(null);
+                dialog.pack();
+                dialog.setVisible(true);
+            });
+            menuFile.add(menuFileLoadOrSave);
+
+
             menuFileLoad = new JMenuItem();
             menuFileLoad.setText("Load");
             menuFileLoad.addActionListener(new ActionListener() {
@@ -270,28 +281,25 @@ public class ADMDialog extends JAddDialog {
         menuTools = new JMenu();
         menuTools.setText("Tools");
         {
-            menuFileToosRefresh = new JMenuItem();
-            menuFileToosRefresh.setText("Refresh");
-            menuFileToosRefresh.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent ae) {
-                    try {
-                        tree1.refresh(true);
-                    } catch (CoreRuntimeException e) {
-                        new ErrWin(null, "Обновление структуры данных не удалось.", true, "Обновление структуры данных не удалось. \n" + e.getErrorMessage(), e);
-                    }
+            menuFileToolsRefresh = new JMenuItem();
+            menuFileToolsRefresh.setText("Refresh");
+            /*  private void FirstLoad_ActionPerformed(ActionEvent ae) {
+                  try {
+                      LoadedCTX.getService(TuneChainStepsFirstLoad.class).run();
+                      workTree();
+                  } catch (CoreExeption coreExeption) {
+                      new MessageWin("Не удалось инициализировать таблицы", coreExeption);
+                  }
+
+              }*/
+            menuFileToolsRefresh.addActionListener(ae -> {
+                try {
+                    tree1.refresh(true);
+                } catch (CoreRuntimeException e) {
+                    new ErrWin(null, "Обновление структуры данных не удалось.", true, "Обновление структуры данных не удалось. \n" + e.getErrorMessage(), e);
                 }
-
-              /*  private void FirstLoad_ActionPerformed(ActionEvent ae) {
-                    try {
-                        LoadedCTX.getService(TuneChainStepsFirstLoad.class).run();
-                        workTree();
-                    } catch (CoreExeption coreExeption) {
-                        new MessageWin("Не удалось инициализировать таблицы", coreExeption);
-                    }
-
-                }*/
             });
-            menuTools.add(menuFileToosRefresh);
+            menuTools.add(menuFileToolsRefresh);
         }
 
         {
@@ -509,11 +517,14 @@ public class ADMDialog extends JAddDialog {
         colomnTable = new JTable(new JDBTableColomnModel());
         indexTable = new JTable(new JDBTableIndexsModel());
         tree1 = new JDBTree();// JDBTree.getInstance();
+
+/*
         try {
             tree1.loadTree(true);
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
+*/
 
         // TODO: place custom component creation code here
     }

@@ -1,7 +1,6 @@
 package ru.vood.admplugin.infrastructure.spring.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +36,7 @@ public class VBdObjectEntityImpl /*extends ParentForAllImpl*/ implements VBdObje
         this.commonFunctionService = commonFunctionService;
     }
 
-    @Cacheable("referenceCache")
+    //@Cacheable("referenceCache")
     public ArrayList<VBdObjectEntity> findByTypeObjectCodeIn(String... codeS) {
 
         List<String> stringList = new ArrayList<>(codeS.length);
@@ -54,18 +53,6 @@ public class VBdObjectEntityImpl /*extends ParentForAllImpl*/ implements VBdObje
         List list1 = (ArrayList<VBdObjectEntity>) query.getResultList();
         return (ArrayList<VBdObjectEntity>) list1;
     }
-/*
-    public ArrayList<VBdObjectEntity> findByCodeAndTypeObjectCodeAndParent(String code, String typeObjectCode, VBdObjectEntity parent) {
-        Query query = em.createQuery("select a2 from VBdObjectTypeEntity a1, VBdObjectEntity a2 where a1.code = :codeType " +
-                "and a2.typeObject = a1.id and a2.code = :code and a2.parent = :parentId", VBdObjectEntity.class)
-                .setParameter("codeType", typeObjectCode)
-                .setParameter("code", code)
-                .setParameter("parentId", parent);
-
-        List list = query.getResultList();
-        return (ArrayList<VBdObjectEntity>) list;
-    }
-    */
 
     @Override
     public List<VBdObjectEntity> findByParent(VBdObjectEntity parent) {
@@ -73,6 +60,7 @@ public class VBdObjectEntityImpl /*extends ParentForAllImpl*/ implements VBdObje
     }
 
     @Override
+    //@CacheEvict("referenceCache")
     public VBdObjectEntity save(VBdObjectEntity entity) {
         if (entity.getDateCreate() == null) {
             entity.setDateCreate(new Date());
@@ -81,6 +69,7 @@ public class VBdObjectEntityImpl /*extends ParentForAllImpl*/ implements VBdObje
     }
 
     @Override
+    //@CacheEvict("referenceCache")
     public void delete(VBdObjectEntity entity) {
         vBdObjectEntityRepository.delete(entity);
     }
@@ -140,5 +129,10 @@ public class VBdObjectEntityImpl /*extends ParentForAllImpl*/ implements VBdObje
 //        }
 
         return (VBdObjectEntity) commonFunctionService.checkOn(list1);
+    }
+
+    @Override
+    public List<VBdObjectEntity> findAll() {
+        return vBdObjectEntityRepository.findAll();
     }
 }

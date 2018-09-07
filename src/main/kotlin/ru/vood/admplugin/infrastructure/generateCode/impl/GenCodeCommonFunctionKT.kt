@@ -38,12 +38,14 @@ class GenCodeCommonFunctionKT(@Autowired
         return code.append(getClassName(entity, typeOfGenClassKT))
     }
 
+/*
     @Deprecated("move to fields")
     fun getIdField(): StringBuilder = StringBuilder("    @Id\n" +
-            "    @GenericGenerator(name = \"seqId\", strategy = \"ru.vood.Plugin.infrastructure.spring.entity.GeneratorId\")\n" +
+            "    @GenericGenerator(name = \"seqId\", strategy = \"ru.vood.admplugin.infrastructure.spring.entity.GeneratorId\")\n" +
             "    @GeneratedValue(generator = \"seqId\")\n" +
             "    @Column(name = \"ID\", nullable = false, precision = 0)\n" +
             "    private BigDecimal id;\n")
+*/
 
     fun genFieldName(entity: VBdObjectEntity): StringBuilder {
         val s = toCamelCase(entity.code)

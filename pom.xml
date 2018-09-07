@@ -343,11 +343,6 @@
             <artifactId>AdminWebVaadin</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <dependency>
-            <groupId>ru.vood</groupId>
-            <artifactId>admJavaModules</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
 
         <dependency>
             <groupId>com.google.code.gson</groupId>

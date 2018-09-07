@@ -4,13 +4,17 @@ import ru.vood.admplugin.dialogs.ExtSwing.EnglishFilter;
 import ru.vood.admplugin.dialogs.ExtSwing.JAddDialog;
 import ru.vood.admplugin.infrastructure.spring.context.LoadedCTX;
 import ru.vood.admplugin.infrastructure.spring.entity.VBdObjectEntity;
+import ru.vood.admplugin.infrastructure.spring.entity.VBdObjectTypeEntity;
 import ru.vood.admplugin.infrastructure.spring.entity.VBdTableEntity;
 import ru.vood.admplugin.infrastructure.spring.intf.VBdTableEntityService;
+import ru.vood.admplugin.infrastructure.spring.referenceBook.ObjectTypes;
 import ru.vood.admplugin.infrastructure.tune.PluginTunes;
 
 import javax.swing.*;
 import javax.swing.text.PlainDocument;
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class NewOrEditTable extends JAddDialog {
 
@@ -38,17 +42,9 @@ public class NewOrEditTable extends JAddDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        buttonOK.addActionListener(e -> onOK());
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        buttonCancel.addActionListener(e -> onCancel());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -59,20 +55,19 @@ public class NewOrEditTable extends JAddDialog {
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
     private void onOK() {
         if (checkText(codeField) && checkText(nameField)) {
             PluginTunes pluginTunes = LoadedCTX.getService(PluginTunes.class);
             VBdTableEntity newBDTable = isEdit ? (VBdTableEntity) object : new VBdTableEntity();
+            VBdObjectTypeEntity parentObject =
+                    this.parent.getTypeObject().equals(ObjectTypes.getOBJECT()) ? ObjectTypes.getTABLE() : this.parent.getTypeObject();
+
 
             newBDTable.setParent(this.parent);
-            newBDTable.setTypeObject(this.parent.getTypeObject());
+            newBDTable.setTypeObject(parentObject);
             newBDTable.setCode(this.codeField.getText().toUpperCase().trim());
             newBDTable.setName(this.nameField.getText().trim());
             newBDTable.setJavaClass(newBDTable.getClass().toString());

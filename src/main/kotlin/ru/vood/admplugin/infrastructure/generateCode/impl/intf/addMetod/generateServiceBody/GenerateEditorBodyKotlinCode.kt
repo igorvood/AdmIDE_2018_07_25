@@ -34,11 +34,11 @@ class GenerateEditorBodyKotlinCode(@Autowired
                 .filter { e -> e.typeColomn == ObjectTypes.getREFERENCE() }
                 .toList()
 
-        val fields = StringBuilder()
+        //val fields = StringBuilder()
 
-        retVal.append(fields.append(generateFields(listReference)))
+        retVal.append(generateFields(listReference))
 
-        retVal.append(fields.append(generateConstructor(entity, listReference)))
+        retVal.append(generateConstructor(entity, listReference))
 
         return retVal
     }
@@ -108,8 +108,6 @@ class GenerateEditorBodyKotlinCode(@Autowired
 //                    .append(genCodeCommonFunction.getClassName(toType))
 //                    .append(")")
         return retVal
-
-
     }
 
     private fun generateFields(listReference: List<VBdColumnsEntity>): StringBuilder {

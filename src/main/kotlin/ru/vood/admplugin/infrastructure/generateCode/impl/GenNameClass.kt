@@ -88,11 +88,24 @@ class GenNameClass(@Autowired
 
         //Формирование класса родителя для класса таблицы
         if (typeOfGenClass == TypeOfGenClass.GRID_CLASS) {
+            //(repo: CustomerRepository, editor: TestEditor1)
+
+
             addAnyClassService.getCode(entity, TypeOfGenClass.ENTITY_CLASS)
             addAnyClassService.getCode(entity, TypeOfGenClass.SERVICE_CLASS)
             addAnyClassService.getCode(entity, TypeOfGenClass.EDITOR_CLASS)
             addJavaClassToImport.getCode(AbstractGridKT::class.java)
-
+            //формирование параметров для конструктора
+            extend.append("(")
+                    .append(genCodeCommonFunction.getParametrName(entity, TypeOfGenClass.SERVICE_CLASS))
+                    .append(":")
+                    .append(genCodeCommonFunction.getClassName(entity, TypeOfGenClass.SERVICE_CLASS))
+                    .append(", ")
+                    .append(genCodeCommonFunction.getParametrName(entity, TypeOfGenClass.EDITOR_CLASS))
+                    .append(":")
+                    .append(genCodeCommonFunction.getClassName(entity, TypeOfGenClass.EDITOR_CLASS))
+                    .append(")\n")
+            //формирование родителя текущего класса
             extend.append(" : ")
                     .append("AbstractGridKT<")
                     .append(genCodeCommonFunction.getClassName(entity, TypeOfGenClass.ENTITY_CLASS))
@@ -101,6 +114,14 @@ class GenNameClass(@Autowired
                     .append(", ")
                     .append(genCodeCommonFunction.getClassName(entity, TypeOfGenClass.EDITOR_CLASS))
                     .append(">")
+
+            //формирование парметров вызова конструктора родителя
+            extend.append(" ( ")
+                    .append(genCodeCommonFunction.getParametrName(entity, TypeOfGenClass.SERVICE_CLASS)).append(", ")
+                    .append(genCodeCommonFunction.getClassName(entity)).append("::class.java").append(", ")
+                    .append(genCodeCommonFunction.getParametrName(entity, TypeOfGenClass.EDITOR_CLASS))
+                    .append(" ) ")
+
         }
 
         val clazz = "/* ${typeOfGenClass.comment} для таблицы БД - ${entity.name} */\n" +

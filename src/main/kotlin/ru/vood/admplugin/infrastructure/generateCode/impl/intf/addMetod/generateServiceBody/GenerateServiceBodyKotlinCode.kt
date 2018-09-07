@@ -38,7 +38,7 @@ class GenerateServiceBodyKotlinCode : GenerateServiceBodyService {
 
     override fun genCode(entity: VBdObjectEntity, typeOfGenClass: TypeOfGenClass): StringBuilder {
         val ret = StringBuilder()
-        ret.append(generateSaveMethod.genCode(entity, typeOfGenClass).append("\n\n"))
+        //ret.append(generateSaveMethod.genCode(entity, typeOfGenClass).append("\n\n"))
         ret.append(generateSaveListMethod.genCode(entity, typeOfGenClass).append("\n\n"))
 
         //ret.append(generateDeleteMethod.genCode(entity, typeOfGenClass).append("\n\n"))

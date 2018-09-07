@@ -88,7 +88,7 @@ class GenClassBodyImplKT(@Autowired
         res.append(addAnnotationClass.getCode(Id::class.java))
 
         param.put("name", "\"seqId\"")
-        param.put("strategy", "\"ru.vood.Plugin.infrastructure.spring.entity.GeneratorId\"")
+        param.put("strategy", "\"ru.vood.admplugin.infrastructure.spring.entity.GeneratorId\"")
         res.append(addAnnotationClass.getCode(GenericGenerator::class.java, param))
 
         param.clear()
