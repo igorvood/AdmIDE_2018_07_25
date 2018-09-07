@@ -52,7 +52,7 @@ public class ObjectTypes {
         return get("BOOLEAN");
     }
 
-    public static VBdObjectTypeEntity getCOLOMN() {
+    public static VBdObjectTypeEntity getCOLUMN() {
         return get("COLOMN");
     }
 

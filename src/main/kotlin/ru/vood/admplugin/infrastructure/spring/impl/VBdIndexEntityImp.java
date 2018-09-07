@@ -68,7 +68,7 @@ public class VBdIndexEntityImp implements VBdIndexEntityService {
         for (VBdIndexEntity li : listVBdIndexEntity) {
             for (VBdIndexedColumnsEntity col : indexedColomnsEntities) {
                 if (li.getColumns().equals(col.getCollectionId())) {
-                    li.addColomn(col);
+                    li.addColumn(col);
                 }
             }
         }

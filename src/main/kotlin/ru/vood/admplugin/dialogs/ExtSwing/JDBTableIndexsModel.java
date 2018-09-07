@@ -62,10 +62,10 @@ public class JDBTableIndexsModel extends AbstractTableModel {
                 return rows.get(rowIndex).getParent().getName();
             }
             if (columnIndex == 3) {
-                List<VBdIndexedColumnsEntity> indexedColomnsEntities = ((VBdIndexEntity) rows.get(rowIndex)).getColomnsEntities();
-                if (indexedColomnsEntities != null && !indexedColomnsEntities.isEmpty()) {
-                    String colS = indexedColomnsEntities.stream()
-                            .map(entity -> entity.getColomnRef().getCode())
+                List<VBdIndexedColumnsEntity> indexedColumnsEntities = ((VBdIndexEntity) rows.get(rowIndex)).getColomnsEntities();
+                if (indexedColumnsEntities != null && !indexedColumnsEntities.isEmpty()) {
+                    String colS = indexedColumnsEntities.stream()
+                            .map(entity -> entity.getColumnRef().getCode())
                             .reduce((s1, s2) -> s1 + ", " + s2).orElse(" ");
                     return colS;
                 }

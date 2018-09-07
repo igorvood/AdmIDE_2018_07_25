@@ -51,7 +51,7 @@ public class AddIndexImpl implements StepsCreateAndDropServise {
         VBdIndexEntity bdIndex = (VBdIndexEntity) bdObject;
         if (bdIndex.getColomnsEntities() != null) {
             List s = bdIndex.getColomnsEntities().stream()
-                    .map((c) -> c.getColomnRef().getCode())
+                    .map((c) -> c.getColumnRef().getCode())
                     .collect(Collectors.toList());
             //String sql = indexSql.generateUser(bdIndex.getParent().getCode(), bdIndex.getUniqueI(), s, null);
             String sql = generateAll(pluginTunes.getPrefixTable() + bdIndex.getParent().getCode(), bdIndex.getUniqueI(), false, pluginTunes.getTableSpaceUserIndex(), s, bdIndex.getCode());

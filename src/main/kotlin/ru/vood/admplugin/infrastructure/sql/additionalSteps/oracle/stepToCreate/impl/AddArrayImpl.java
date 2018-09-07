@@ -49,7 +49,7 @@ public class AddArrayImpl implements StepsCreateAndDropServise {
             colomnsEntity.setNotNull(true);
             colomnsEntity.setTypeColomn(ObjectTypes.getNUMBER());
             colomnsEntity.setTypeValue(Tables.getAny("NUM"));
-            colomnsEntity.setTypeObject(ObjectTypes.getCOLOMN());
+            colomnsEntity.setTypeObject(ObjectTypes.getCOLUMN());
             colomnsEntity.setJavaClass(colomnsEntity.getClass().toString());
             VBdColumnsEntity new_colomnsEntity = colomnsEntityService.save(colomnsEntity);
 
@@ -61,7 +61,7 @@ public class AddArrayImpl implements StepsCreateAndDropServise {
             indexEntity.setJavaClass(indexEntity.getClass().toString());
             indexEntity.setColumns(commonFunction.nextId());
 
-            indexEntity.addColomn(colomnsEntity);
+            indexEntity.addColumn(colomnsEntity);
             indexEntity = indexEntityService.save(indexEntity);
 
 

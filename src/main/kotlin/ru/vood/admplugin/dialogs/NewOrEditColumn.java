@@ -87,18 +87,18 @@ public class NewOrEditColumn extends JAddDialog {
 
         // add your code here
         if (checkText(codeField) && checkText(nameField) && tree1.getLastSelectedPathComponent() != null) {
-            VBdColumnsEntity colomns = new VBdColumnsEntity();
-            colomns.setJavaClass(VBdColumnsEntity.class.toString());
-            colomns.setParent(this.parentObject);
-            colomns.setCode(codeField.getText().toUpperCase());
-            colomns.setName(nameField.getText());
-            colomns.setNotNull(((notNullCheckBox.isSelected()) ? true : false));
+            VBdColumnsEntity columns = new VBdColumnsEntity();
+            columns.setJavaClass(VBdColumnsEntity.class.toString());
+            columns.setParent(this.parentObject);
+            columns.setCode(codeField.getText().toUpperCase());
+            columns.setName(nameField.getText());
+            columns.setNotNull(((notNullCheckBox.isSelected()) ? true : false));
 
-            colomns.setTypeObject(ObjectTypes.getCOLOMN());
-            colomns.setTypeValue((VBdTableEntity) ((DefaultMutableTreeNode) tree1.getLastSelectedPathComponent()).getUserObject());
-            VBdColumnsEntityService colomnsEntityService = LoadedCTX.getService(VBdColumnsEntityService.class);
-            VBdColumnsEntity newColomn = (VBdColumnsEntity) colomnsEntityService.save(colomns);
-            this.setAddedObj(newColomn);
+            columns.setTypeObject(ObjectTypes.getCOLUMN());
+            columns.setTypeValue((VBdTableEntity) ((DefaultMutableTreeNode) tree1.getLastSelectedPathComponent()).getUserObject());
+            VBdColumnsEntityService columnsEntityService = LoadedCTX.getService(VBdColumnsEntityService.class);
+            VBdColumnsEntity newColumn = (VBdColumnsEntity) columnsEntityService.save(columns);
+            this.setAddedObj(newColumn);
 
             dispose();
         } else {

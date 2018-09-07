@@ -96,14 +96,14 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <scrollpane id="68e3a" binding="colomnsPanel">
+                  <scrollpane id="68e3a" binding="columnsPanel">
                     <constraints>
                       <tabbedpane title="Колонки"/>
                     </constraints>
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="962ef" class="javax.swing.JTable" binding="colomnTable" custom-create="true">
+                      <component id="962ef" class="javax.swing.JTable" binding="columnTable" custom-create="true">
                         <constraints/>
                         <properties/>
                       </component>

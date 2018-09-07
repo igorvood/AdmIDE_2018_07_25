@@ -32,7 +32,7 @@ class GenClassServiceKT(@Autowired
     override fun genCode(entity: VBdTableEntity, typeOfGenClass: TypeOfGenClass): StringBuilder {
         val code = StringBuilder()
 
-        code.append(genPackageImpl!!.genCode(entity, typeOfGenClass))
+        code.append(genPackageImpl.genCode(entity, typeOfGenClass))
 
         val annotationClass = genAnnotationClassService.genCode(entity, typeOfGenClass)
 

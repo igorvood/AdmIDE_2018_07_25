@@ -47,7 +47,7 @@ public class VBdIndexedColumnsEntity {
         this.collectionId = collectionId;
     }
 
-    public VBdColumnsEntity getColomnRef() {
+    public VBdColumnsEntity getColumnRef() {
         return colomnRef;
     }
 

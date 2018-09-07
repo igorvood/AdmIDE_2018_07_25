@@ -23,7 +23,7 @@ public class DDKCreateAspectJOnJava {
 
     @Pointcut("execution(* ru.vood.admplugin.infrastructure.spring.intf.*.save(..))")
     // @Pointcut("execution(* ru.vood.Plugin.infrastructure.spring.impl.*.save(..)) ")
-    //@Pointcut("execution(* ru.vood.Plugin.dialogs.ADMDialog.addOrEditColomn(..))")
+    //@Pointcut("execution(* ru.vood.Plugin.dialogs.ADMDialog.addOrEditColumn(..))")
     public void addOrEditObj() {
     }
 

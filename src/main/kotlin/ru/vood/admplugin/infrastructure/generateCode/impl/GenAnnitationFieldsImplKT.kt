@@ -23,7 +23,6 @@ class GenAnnitationFieldsImplKT : GenAnnitationFieldsServiceKT {
 
 
     override fun genCode(entity: VBdColumnsEntity, typeOfGenClass: TypeOfGenClass): StringBuilder {
-        //val col = entity as VBdColumnsEntity
         when (entity.typeColomn) {
             ObjectTypes.getSTRING() -> return genSimple(entity)
             ObjectTypes.getNUMBER() -> return genSimple(entity)
@@ -33,8 +32,6 @@ class GenAnnitationFieldsImplKT : GenAnnitationFieldsServiceKT {
             ObjectTypes.getREFERENCE() -> return genRef(entity)
             else -> throw ApplicationException("Невозможно преобразовать тип колонки ${entity.typeColomn?.code} ")
         }
-
-        return StringBuilder("")
     }
 
     private fun genSimple(col: VBdColumnsEntity): StringBuilder {

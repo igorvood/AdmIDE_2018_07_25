@@ -57,8 +57,8 @@ public class VBdIndexEntity extends VBdObjectEntity {
         return colomnsEntities;
     }
 
-    public void setColomnsEntities(List<VBdIndexedColumnsEntity> colomnsEntities) {
-        this.colomnsEntities = colomnsEntities;
+    public void setColumnsEntities(List<VBdIndexedColumnsEntity> columnsEntities) {
+        this.colomnsEntities = columnsEntities;
     }
 
     public BigDecimal getColumns() {
@@ -69,7 +69,7 @@ public class VBdIndexEntity extends VBdObjectEntity {
         this.columns = columns;
     }
 
-    public void addColomn(VBdIndexedColumnsEntity entity) {
+    public void addColumn(VBdIndexedColumnsEntity entity) {
         if (columns == null) {
             columns = LoadedCTX.getService(CommonFunctionService.class).nextId();
         }
@@ -80,10 +80,10 @@ public class VBdIndexEntity extends VBdObjectEntity {
         colomnsEntities.add(entity);
     }
 
-    public void addColomn(VBdColumnsEntity entity) {
+    public void addColumn(VBdColumnsEntity entity) {
         VBdIndexedColumnsEntity indexedColomnsEntity = new VBdIndexedColumnsEntity();
         indexedColomnsEntity.setColomnRef(entity);
-        addColomn(indexedColomnsEntity);
+        addColumn(indexedColomnsEntity);
     }
 
 

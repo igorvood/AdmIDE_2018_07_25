@@ -1,7 +1,7 @@
 package ru.vood.admplugin.dialogs;
 
 import ru.vood.admplugin.dialogs.ExtSwing.JAddDialog;
-import ru.vood.admplugin.dialogs.ExtSwing.JDBTableIndexColomnsModel;
+import ru.vood.admplugin.dialogs.ExtSwing.JDBTableIndexColumnsModel;
 import ru.vood.admplugin.infrastructure.spring.context.LoadedCTX;
 import ru.vood.admplugin.infrastructure.spring.entity.VBdColumnsEntity;
 import ru.vood.admplugin.infrastructure.spring.entity.VBdIndexEntity;
@@ -34,7 +34,7 @@ public class NewOrEditIndex extends JAddDialog {
     private VBdObjectEntity parentObject;
     private VBdIndexEntity indexEntity;
 
-    private List<VBdObjectEntity> indexedColomnsEntities;
+    private List<VBdObjectEntity> indexedColumnsEntities;
 
     public NewOrEditIndex(VBdIndexEntity indexEntity, VBdObjectEntity parent) {
 
@@ -83,15 +83,15 @@ public class NewOrEditIndex extends JAddDialog {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     JTable obj = (JTable) e.getSource();
-                    JDBTableIndexColomnsModel tableModel = (JDBTableIndexColomnsModel) obj.getModel();
-                    VBdColumnsEntity clickedColomnsEntity = tableModel.getSelectedTypeObject(obj.getSelectedRow());
-                    if (clickedColomnsEntity != null) {
+                    JDBTableIndexColumnsModel tableModel = (JDBTableIndexColumnsModel) obj.getModel();
+                    VBdColumnsEntity clickedColumnsEntity = tableModel.getSelectedTypeObject(obj.getSelectedRow());
+                    if (clickedColumnsEntity != null) {
                         if (ExcludeTable.equals(obj)) {
-                            ((JDBTableIndexColomnsModel) includeTable.getModel()).addColomn(clickedColomnsEntity);
-                            ((JDBTableIndexColomnsModel) ExcludeTable.getModel()).deleteColomn(clickedColomnsEntity);
+                            ((JDBTableIndexColumnsModel) includeTable.getModel()).addColumn(clickedColumnsEntity);
+                            ((JDBTableIndexColumnsModel) ExcludeTable.getModel()).deleteColumn(clickedColumnsEntity);
                         } else {
-                            ((JDBTableIndexColomnsModel) includeTable.getModel()).deleteColomn(clickedColomnsEntity);
-                            ((JDBTableIndexColomnsModel) ExcludeTable.getModel()).addColomn(clickedColomnsEntity);
+                            ((JDBTableIndexColumnsModel) includeTable.getModel()).deleteColumn(clickedColumnsEntity);
+                            ((JDBTableIndexColumnsModel) ExcludeTable.getModel()).addColumn(clickedColumnsEntity);
                         }
                         includeTable.updateUI();
                         ExcludeTable.updateUI();
@@ -111,17 +111,17 @@ public class NewOrEditIndex extends JAddDialog {
             indexEntity.setJavaClass(indexEntity.getClass().toString());
             indexEntity.setTypeObject(ObjectTypes.getINDEX());
         }
-        List<VBdObjectEntity> listColomn = ((JDBTableIndexColomnsModel) includeTable.getModel()).getRows();
-        String nameIdx = listColomn.stream()
+        List<VBdObjectEntity> listColumn = ((JDBTableIndexColumnsModel) includeTable.getModel()).getRows();
+        String nameIdx = listColumn.stream()
                 .map(q -> q.getCode())
                 .reduce((s1, s2) -> s1 + "_" + s2).orElse(" ");
         indexEntity.setName(INDEX_PREFIX + parentObject.getCode() + "_" + nameIdx);
         indexEntity.setCode(INDEX_PREFIX + parentObject.getCode() + "_" + nameIdx);
         indexEntity.setGlobalI(false);
         indexEntity.setUniqueI(false);
-        indexEntity.setColomnsEntities(null);
-        for (VBdObjectEntity ic : listColomn) {
-            indexEntity.addColomn((VBdColumnsEntity) ic);
+        indexEntity.setColumnsEntities(null);
+        for (VBdObjectEntity ic : listColumn) {
+            indexEntity.addColumn((VBdColumnsEntity) ic);
         }
         VBdIndexEntityService indexEntityService = LoadedCTX.getService(VBdIndexEntityService.class);
         try {
@@ -151,20 +151,20 @@ public class NewOrEditIndex extends JAddDialog {
 
     private void createUIComponents() {
         VBdObjectEntityService service = LoadedCTX.getService(VBdObjectEntityService.class);
-        List<VBdObjectEntity> vBdObjectEntityList = service.findByParentAndTypeObject(parentObject, ObjectTypes.getCOLOMN());
+        List<VBdObjectEntity> vBdObjectEntityList = service.findByParentAndTypeObject(parentObject, ObjectTypes.getCOLUMN());
         if (indexEntity != null) {
-            VBdIndexedColumnsEntityService indexedColomnsEntityService = LoadedCTX.getService(VBdIndexedColumnsEntityService.class);
-            indexedColomnsEntities = indexedColomnsEntityService.findByCollectionId(indexEntity.getColumns())
-                    .stream().map(q -> q.getColomnRef())
+            VBdIndexedColumnsEntityService indexedColumnsEntityService = LoadedCTX.getService(VBdIndexedColumnsEntityService.class);
+            indexedColumnsEntities = indexedColumnsEntityService.findByCollectionId(indexEntity.getColumns())
+                    .stream().map(q -> q.getColumnRef())
                     .collect(Collectors.toList());
         } else {
-            indexedColomnsEntities = new ArrayList<>();
+            indexedColumnsEntities = new ArrayList<>();
         }
-        List<VBdObjectEntity> vBdColomnListNotInIndex = vBdObjectEntityList.stream()
-                .filter(colom -> !indexedColomnsEntities.contains(colom))
+        List<VBdObjectEntity> vBdColumnListNotInIndex = vBdObjectEntityList.stream()
+                .filter(colom -> !indexedColumnsEntities.contains(colom))
                 .collect(Collectors.toList());
-        JDBTableIndexColomnsModel excludeTableModel = new JDBTableIndexColomnsModel((ArrayList<VBdObjectEntity>) vBdColomnListNotInIndex, "Не включены в индекс");
-        JDBTableIndexColomnsModel includeTableModel = new JDBTableIndexColomnsModel((ArrayList<VBdObjectEntity>) indexedColomnsEntities, "В индексе");
+        JDBTableIndexColumnsModel excludeTableModel = new JDBTableIndexColumnsModel((ArrayList<VBdObjectEntity>) vBdColumnListNotInIndex, "Не включены в индекс");
+        JDBTableIndexColumnsModel includeTableModel = new JDBTableIndexColumnsModel((ArrayList<VBdObjectEntity>) indexedColumnsEntities, "В индексе");
         ExcludeTable = new JTable(excludeTableModel);
         includeTable = new JTable(includeTableModel);
 

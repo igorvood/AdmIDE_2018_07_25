@@ -125,9 +125,9 @@ public class NewOrEditRefArr extends JAddDialog {
                 table.setParent(parent);
                 table.setToType((VBdTableEntity) bdTable);
 
-                VBdObjectEntityService colomnsEntityService = LoadedCTX.getService(VBdObjectEntityService.class);
+                VBdObjectEntityService columnsEntityService = LoadedCTX.getService(VBdObjectEntityService.class);
                 try {
-                    VBdTableEntity newTableEntity = (VBdTableEntity) colomnsEntityService.save(table);
+                    VBdTableEntity newTableEntity = (VBdTableEntity) columnsEntityService.save(table);
                     this.setAddedObj(newTableEntity);
                     dispose();
                 } catch (Exception e) {

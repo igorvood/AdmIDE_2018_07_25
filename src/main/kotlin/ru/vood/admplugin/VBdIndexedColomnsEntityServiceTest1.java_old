@@ -1,9 +1,0 @@
-package ru.vood.admplugin.infrastructure.spring.intf;
-
-import ru.vood.admplugin.infrastructure.spring.entity.VBdIndexedColomnsEntityTest;
-
-import java.math.BigDecimal;
-
-public interface VBdIndexedColomnsEntityServiceTest1 {
-    VBdIndexedColomnsEntityTest findById(BigDecimal id);
-}

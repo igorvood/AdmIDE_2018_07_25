@@ -7,13 +7,13 @@ import ru.vood.admplugin.infrastructure.spring.entity.VBdObjectEntity;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
-public class JDBTableIndexColomnsModel extends AbstractTableModel {
+public class JDBTableIndexColumnsModel extends AbstractTableModel {
 
-    ArrayList<VBdObjectEntity> rows = new ArrayList<VBdObjectEntity>();
+    private ArrayList<VBdObjectEntity> rows;
 
-    ArrayList<String> cols = new ArrayList<String>();
+    private ArrayList<String> cols = new ArrayList<String>();
 
-    public JDBTableIndexColomnsModel(ArrayList<VBdObjectEntity> rows, String col) {
+    public JDBTableIndexColumnsModel(ArrayList<VBdObjectEntity> rows, String col) {
         this.rows = rows;
         this.cols.add(col);
     }
@@ -46,12 +46,12 @@ public class JDBTableIndexColomnsModel extends AbstractTableModel {
         return ((VBdColumnsEntity) rows.get(rowIndex));
     }
 
-    public void addColomn(VBdColumnsEntity colomnsEntity) {
-        rows.add(colomnsEntity);
+    public void addColumn(VBdColumnsEntity columnsEntity) {
+        rows.add(columnsEntity);
     }
 
-    public void deleteColomn(VBdColumnsEntity colomnsEntity) {
-        rows.remove(colomnsEntity);
+    public void deleteColumn(VBdColumnsEntity columnsEntity) {
+        rows.remove(columnsEntity);
     }
 
     public ArrayList<VBdObjectEntity> getRows() {

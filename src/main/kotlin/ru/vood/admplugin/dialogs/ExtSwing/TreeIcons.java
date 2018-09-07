@@ -27,7 +27,7 @@ public class TreeIcons {
             icon = new ImageIcon(userDir + "\\src\\main\\resources\\images\\tree\\_boolean16.png");
         } else if (entity.getTypeObject().equals(ObjectTypes.getINDEX())) {
             icon = new ImageIcon(userDir + "\\src\\main\\resources\\images\\tree\\_index16.png");
-        } else if (entity.getTypeObject().equals(ObjectTypes.getCOLOMN())) {
+        } else if (entity.getTypeObject().equals(ObjectTypes.getCOLUMN())) {
             icon = new ImageIcon(userDir + "\\src\\main\\resources\\images\\tree\\_colomn16.png");
         }
         return icon;

@@ -46,17 +46,17 @@ public class ADMDialog extends JAddDialog {
 
     private JPopupMenu jPopupMenuTable;
     private JMenu menuAdd;
-    private JMenuItem jMenuItemAddColomn;
+    private JMenuItem jMenuItemAddColumn;
 
 
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
     private JDBTree tree1;
-    private JTable colomnTable;
+    private JTable columnTable;
     private JProgressBar progressBar1;
     private JLabel shortName;
-    private JScrollPane colomnsPanel;
+    private JScrollPane columnsPanel;
     private JScrollPane indexesPanel;
     private JTable indexTable;
 
@@ -66,17 +66,9 @@ public class ADMDialog extends JAddDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        buttonOK.addActionListener(e -> onOK());
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        buttonCancel.addActionListener(e -> onCancel());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -87,11 +79,7 @@ public class ADMDialog extends JAddDialog {
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
 
         tree1.addTreeSelectionListener(new TreeSelectionListener() {
@@ -104,13 +92,13 @@ public class ADMDialog extends JAddDialog {
             public void valueChanged(TreeSelectionEvent e) {
                 try {
                     if (tree1.getLastSelectedPathComponent() != null && ((DefaultMutableTreeNode) tree1.getLastSelectedPathComponent()).getUserObject() != null) {
-                        ((JDBTableColomnModel) colomnTable.getModel()).clear();
+                        ((JDBTableColumnModel) columnTable.getModel()).clear();
 
                         VBdObjectEntity entity = (VBdObjectEntity) ((DefaultMutableTreeNode) tree1.getLastSelectedPathComponent()).getUserObject();
                         shortName.setText(entity.getCode());
                         if (entity instanceof VBdTableEntity) {
-                            ((JDBTableColomnModel) colomnTable.getModel()).loadTableByObj((VBdTableEntity) ((DefaultMutableTreeNode) tree1.getLastSelectedPathComponent()).getUserObject());
-                            colomnTable.updateUI();
+                            ((JDBTableColumnModel) columnTable.getModel()).loadTableByObj((VBdTableEntity) ((DefaultMutableTreeNode) tree1.getLastSelectedPathComponent()).getUserObject());
+                            columnTable.updateUI();
 
                             ((JDBTableIndexsModel) indexTable.getModel()).loadTableByObj((VBdTableEntity) ((DefaultMutableTreeNode) tree1.getLastSelectedPathComponent()).getUserObject());
                             indexTable.updateUI();
@@ -124,14 +112,14 @@ public class ADMDialog extends JAddDialog {
                 }
             }
         });
-        colomnTable.addMouseListener(new MouseAdapter() {
+        columnTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     JTable obj = (JTable) e.getSource();
                     //если клинул по наименованию типа
                     if (obj.getSelectedColumn() == 2) {
-                        JDBTableColomnModel tableModel = (JDBTableColomnModel) obj.getModel();
+                        JDBTableColumnModel tableModel = (JDBTableColumnModel) obj.getModel();
                         tree1.gotoObjectOnTree(tableModel.getSelectedTypeObject(obj.getSelectedRow()));
                         tree1.getLastSelectedPathComponent();
                     }
@@ -384,7 +372,7 @@ public class ADMDialog extends JAddDialog {
             jMenuItemAddSubType.setText("Add");
             jMenuItemAddSubType.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    addOrEditColomn((VBdObjectEntity) ((DefaultMutableTreeNode) tree1.getLastSelectedPathComponent()).getUserObject(), true);
+                    addOrEditColumn((VBdObjectEntity) ((DefaultMutableTreeNode) tree1.getLastSelectedPathComponent()).getUserObject(), true);
                 }
             });
         }
@@ -393,7 +381,7 @@ public class ADMDialog extends JAddDialog {
             jMenuItemEditType.setText("Edit");
             jMenuItemEditType.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    addOrEditColomn((VBdObjectEntity) ((DefaultMutableTreeNode) tree1.getLastSelectedPathComponent()).getUserObject(), false);
+                    addOrEditColumn((VBdObjectEntity) ((DefaultMutableTreeNode) tree1.getLastSelectedPathComponent()).getUserObject(), false);
                 }
             });
         }
@@ -418,16 +406,16 @@ public class ADMDialog extends JAddDialog {
         menuAdd = new JMenu();
         menuAdd.setText("Add");
         {
-            jMenuItemAddColomn = new JMenuItem();
-            jMenuItemAddColomn.setText("Add Column");
-            jMenuItemAddColomn.addActionListener(new ActionListener() {
+            jMenuItemAddColumn = new JMenuItem();
+            jMenuItemAddColumn.setText("Add Column");
+            jMenuItemAddColumn.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent ae) {
                     fileTune_ActionPerformed(ae);
                 }
 
 
             });
-            menuAdd.add(jMenuItemAddColomn);
+            menuAdd.add(jMenuItemAddColumn);
 
             JMenuItem jMenuItemAddIndex = new JMenuItem();
 
@@ -443,12 +431,12 @@ public class ADMDialog extends JAddDialog {
 
         }
         jPopupMenuTable.add(menuAdd);
-        colomnTable.setComponentPopupMenu(jPopupMenuTable);
+        columnTable.setComponentPopupMenu(jPopupMenuTable);
         indexTable.setComponentPopupMenu(jPopupMenuTable);
     }
 
 
-    public VBdObjectEntity addOrEditColomn(VBdObjectEntity object, boolean adding) {
+    public VBdObjectEntity addOrEditColumn(VBdObjectEntity object, boolean adding) {
         /*if (object != null) {
             object.setLoaded(true);
         }*/
@@ -502,9 +490,9 @@ public class ADMDialog extends JAddDialog {
                     indexTableModel.loadTableByObj((VBdTableEntity) object);
                     indexTable.updateUI();
 
-                    JDBTableColomnModel colomnTableModel = ((JDBTableColomnModel) colomnTable.getModel());
-                    colomnTableModel.loadTableByObj((VBdTableEntity) object);
-                    colomnTable.updateUI();
+                    JDBTableColumnModel columnTableModel = ((JDBTableColumnModel) columnTable.getModel());
+                    columnTableModel.loadTableByObj((VBdTableEntity) object);
+                    columnTable.updateUI();
                 }
                 return dialog.getAddedObj();
             }
@@ -514,7 +502,7 @@ public class ADMDialog extends JAddDialog {
     }
 
     private void createUIComponents() {
-        colomnTable = new JTable(new JDBTableColomnModel());
+        columnTable = new JTable(new JDBTableColumnModel());
         indexTable = new JTable(new JDBTableIndexsModel());
         tree1 = new JDBTree();// JDBTree.getInstance();
 
@@ -556,13 +544,10 @@ public class ADMDialog extends JAddDialog {
 
             } else {
                 //Todo  тут идет лишний запрос к BDObjType, далее в ЭФ добавления эта инфа не передается, надо пооптимальнее сделать
-                VBdColumnsEntity colomns = new VBdColumnsEntity();
-                colomns.setJavaClass(VBdColumnsEntity.class.toString());
-                colomns.setParent(object);
-                        /*BDObjType objType = new BDObjType();
-                        objType = (BDObjType) objType.selectFromBase("CODE", "COLOMN");
-                        colomns.setTypeObject(objType);*/
-                addOrEditColomn(colomns, true);
+                VBdColumnsEntity columns = new VBdColumnsEntity();
+                columns.setJavaClass(VBdColumnsEntity.class.toString());
+                columns.setParent(object);
+                addOrEditColumn(columns, true);
             }
         }
     }

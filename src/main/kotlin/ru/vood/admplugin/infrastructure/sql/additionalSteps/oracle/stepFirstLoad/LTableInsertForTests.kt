@@ -73,7 +73,7 @@ class LTableInsertForTests {
         colomnsEntity.typeColomn = ObjectTypes.getSTRING()
         colomnsEntity.typeValue = bdObject_str_table_new
         colomnsEntity.parent = bdObject_table_aderss
-        colomnsEntity.typeObject = ObjectTypes.getCOLOMN()
+        colomnsEntity.typeObject = ObjectTypes.getCOLUMN()
         colomnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
         colomnsEntity = colomnsEntityService.save(colomnsEntity)
 
@@ -83,7 +83,7 @@ class LTableInsertForTests {
         colomnsEntity.typeColomn = ObjectTypes.getSTRING()
         colomnsEntity.typeValue = bdObject_str_table_new
         colomnsEntity.parent = bdObject_table_aderss
-        colomnsEntity.typeObject = ObjectTypes.getCOLOMN()
+        colomnsEntity.typeObject = ObjectTypes.getCOLUMN()
         colomnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
         colomnsEntity = colomnsEntityService.save(colomnsEntity)
 
@@ -126,7 +126,7 @@ class LTableInsertForTests {
         colomnsEntity.typeColomn = ObjectTypes.getSTRING()
         colomnsEntity.typeValue = bdObject_str_table_new
         colomnsEntity.parent = bdObject_table_new
-        colomnsEntity.typeObject = ObjectTypes.getCOLOMN()
+        colomnsEntity.typeObject = ObjectTypes.getCOLUMN()
         colomnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
         colomnsEntity = colomnsEntityService.save(colomnsEntity)
 
@@ -136,7 +136,7 @@ class LTableInsertForTests {
         colomnsEntity.typeColomn = ObjectTypes.getDATE()
         colomnsEntity.typeValue = Tables.getAny("DATE")
         colomnsEntity.parent = bdObject_table_new
-        colomnsEntity.typeObject = ObjectTypes.getCOLOMN()
+        colomnsEntity.typeObject = ObjectTypes.getCOLUMN()
         colomnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
         colomnsEntity = colomnsEntityService.save(colomnsEntity)
 
@@ -147,7 +147,7 @@ class LTableInsertForTests {
             colomnsEntity.typeColomn = ObjectTypes.getARRAY()
             colomnsEntity.typeValue = Tables.getAny(arrCode)
             colomnsEntity.parent = bdObject_table_new
-            colomnsEntity.typeObject = ObjectTypes.getCOLOMN()
+            colomnsEntity.typeObject = ObjectTypes.getCOLUMN()
             colomnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
             colomnsEntity = colomnsEntityService.save(colomnsEntity)
 
@@ -158,7 +158,7 @@ class LTableInsertForTests {
             colomnsEntity.typeColomn = ObjectTypes.getREFERENCE()
             colomnsEntity.typeValue = Tables.getAny(refTypeAdr)
             colomnsEntity.parent = bdObject_table_aderss
-            colomnsEntity.typeObject = ObjectTypes.getCOLOMN()
+            colomnsEntity.typeObject = ObjectTypes.getCOLUMN()
             colomnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
             colomnsEntity = colomnsEntityService.save(colomnsEntity)
 
@@ -176,7 +176,7 @@ class LTableInsertForTests {
             colomnsEntity.typeColomn = ObjectTypes.getSTRING()
             colomnsEntity.typeValue = Tables.getAny(bdObject_str_table_new.code)
             colomnsEntity.parent = bdObject_tableOrg
-            colomnsEntity.typeObject = ObjectTypes.getCOLOMN()
+            colomnsEntity.typeObject = ObjectTypes.getCOLUMN()
             colomnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
             colomnsEntity = colomnsEntityService.save(colomnsEntity)
         }
