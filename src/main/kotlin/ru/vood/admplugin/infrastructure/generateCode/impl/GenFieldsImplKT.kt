@@ -35,7 +35,7 @@ class GenFieldsImplKT(@Autowired
         }
 
         if (typeOfGenClass == TypeOfGenClass.EDITOR_CLASS) {
-            if (entity.typeColomn == ObjectTypes.getREFERENCE()) {
+            if (entity.typeColumn == ObjectTypes.getREFERENCE()) {
                 code.append("private lateinit var ")
                 code.append(genCodeCommonFunction.genFieldName(entity).toString()).append(" : ")
                 code.append(genCodeCommonFunction.getClassName(entity.typeValue)).append("\n\n")
@@ -45,7 +45,7 @@ class GenFieldsImplKT(@Autowired
     }
 
     private fun genColumnClass(col: VBdColumnsEntity): String =
-            when (col.typeColomn) {
+            when (col.typeColumn) {
                 ObjectTypes.getSTRING() -> " String "
                 ObjectTypes.getNUMBER() -> {
                     addJavaClass.getCode(BigDecimal::class.java)

@@ -6,7 +6,7 @@ import ru.vood.admplugin.infrastructure.spring.except.CoreExeption;
 
 import java.util.List;
 
-public interface VBdColumnsEntityService /*extends  ParentForAllServise/*extends VBdObjectEntityService*/ {
+public interface VBdColumnsEntityService {
 
     VBdColumnsEntity save(VBdColumnsEntity entity);
 
@@ -14,7 +14,7 @@ public interface VBdColumnsEntityService /*extends  ParentForAllServise/*extends
 
     List<VBdColumnsEntity> findByParent(VBdTableEntity parent);
 
-    VBdColumnsEntity findColomn(VBdTableEntity parent, String code) throws CoreExeption;
+    VBdColumnsEntity findColumn(VBdTableEntity parent, String code) throws CoreExeption;
 
     List<VBdColumnsEntity> findAllByParent(VBdTableEntity parent);
     //List<VBdObjectEntity> findByTypeObjectCodeIn(String... codeS

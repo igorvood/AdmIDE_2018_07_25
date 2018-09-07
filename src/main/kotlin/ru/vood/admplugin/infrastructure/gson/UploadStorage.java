@@ -44,15 +44,15 @@ public class UploadStorage {
         VBdTableEntityList bdTableEntityList = (VBdTableEntityList) helpFunction.division(entityList, VBdTableEntity.class);
         String sbdTableEntityList = gson.toJson(bdTableEntityList);
 
-        VBdColomnsEntityList vBdColomnsEntityList = (VBdColomnsEntityList) helpFunction.division(entityList, VBdColumnsEntity.class);
-        String svBdColomnsEntityList = gson.toJson(vBdColomnsEntityList);
+        VBdColumnsEntityList vBdColumnsEntityList = (VBdColumnsEntityList) helpFunction.division(entityList, VBdColumnsEntity.class);
+        String svBdColumnsEntityList = gson.toJson(vBdColumnsEntityList);
 
         VBdIndexEntityList vBdIndexEntityList = (VBdIndexEntityList) helpFunction.division(entityList, VBdIndexEntity.class);
         String svBdIndexEntityList = gson.toJson(vBdIndexEntityList);
 
         HashMap<Class, String> uploadMap = new HashMap<>();
         uploadMap.put(VBdTableEntity.class, sbdTableEntityList);
-        uploadMap.put(VBdColumnsEntity.class, svBdColomnsEntityList);
+        uploadMap.put(VBdColumnsEntity.class, svBdColumnsEntityList);
         uploadMap.put(VBdIndexEntity.class, svBdIndexEntityList);
 
         upload(file, uploadMap);
@@ -112,7 +112,7 @@ public class UploadStorage {
                 } else if (etityFile.getName().equals(getName(VBdTableEntity.class))) {
                     entities = gson.fromJson(gsonStr.toString(), VBdTableEntityList.class);
                 } else if (etityFile.getName().equals(getName(VBdColumnsEntity.class))) {
-                    entities = gson.fromJson(gsonStr.toString(), VBdColomnsEntityList.class);
+                    entities = gson.fromJson(gsonStr.toString(), VBdColumnsEntityList.class);
                 } else {
                     entities = new ArrayList();
                 }

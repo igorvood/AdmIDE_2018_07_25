@@ -10,7 +10,7 @@ import ru.vood.admplugin.infrastructure.spring.except.CoreExeption;
 import ru.vood.admplugin.infrastructure.spring.intf.CommonFunctionService;
 import ru.vood.admplugin.infrastructure.spring.intf.VBdColumnsEntityService;
 import ru.vood.admplugin.infrastructure.spring.referenceBook.ObjectTypes;
-import ru.vood.admplugin.infrastructure.spring.repository.VBdColomnsEntityRepository;
+import ru.vood.admplugin.infrastructure.spring.repository.VBdColumnsEntityRepository;
 import ru.vood.admplugin.infrastructure.spring.repository.VBdTableEntityRepository;
 
 import javax.persistence.EntityManager;
@@ -18,19 +18,19 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service//("jpaVBdColomnsEntityService")
+@Service
 @Repository
 @Transactional
 public class VBdColumnsEntityImpl /*extends VBdObjectEntityImpl /*ParentForAllImpl*/ implements VBdColumnsEntityService {
     protected EntityManager em;
-    private VBdColomnsEntityRepository bdColomnsEntityRepository;
+    private VBdColumnsEntityRepository bdColumnsEntityRepository;
     private CommonFunctionService commonFunctionService;
     private VBdTableEntityRepository vBdTableEntityRepository;
 
     @Autowired
-    public VBdColumnsEntityImpl(EntityManager em, VBdColomnsEntityRepository bdColomnsEntityRepository, CommonFunctionService commonFunctionService, VBdTableEntityRepository vBdTableEntityRepository) {
+    public VBdColumnsEntityImpl(EntityManager em, VBdColumnsEntityRepository bdColumnsEntityRepository, CommonFunctionService commonFunctionService, VBdTableEntityRepository vBdTableEntityRepository) {
         this.em = em;
-        this.bdColomnsEntityRepository = bdColomnsEntityRepository;
+        this.bdColumnsEntityRepository = bdColumnsEntityRepository;
         this.commonFunctionService = commonFunctionService;
         this.vBdTableEntityRepository = vBdTableEntityRepository;
     }
@@ -72,16 +72,16 @@ public class VBdColumnsEntityImpl /*extends VBdObjectEntityImpl /*ParentForAllIm
 
     @Override
     public VBdColumnsEntity save(VBdColumnsEntity entity) {
-        return bdColomnsEntityRepository.save(entity);
+        return bdColumnsEntityRepository.save(entity);
     }
 
     @Override
     public void delete(VBdColumnsEntity entity) {
-        bdColomnsEntityRepository.delete(entity);
+        bdColumnsEntityRepository.delete(entity);
     }
 
     @Override
-    public VBdColumnsEntity findColomn(VBdTableEntity parent, String code) throws CoreExeption {
+    public VBdColumnsEntity findColumn(VBdTableEntity parent, String code) throws CoreExeption {
         Query query = em.createQuery("select a1 from VBdColumnsEntity a1 " +
                 "  join fetch a1.parent a3  " +
                 " where a1.parent = :parent " +

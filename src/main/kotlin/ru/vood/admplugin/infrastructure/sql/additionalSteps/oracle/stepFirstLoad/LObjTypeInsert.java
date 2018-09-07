@@ -61,12 +61,12 @@ public class LObjTypeInsert {
         bdObjType_BOOLEAN.setName("Логика");
         bdObjType_BOOLEAN = entityService.save(bdObjType_BOOLEAN);
 
-        VBdObjectTypeEntity bdObjType_colomn = new VBdObjectTypeEntity();
-        bdObjType_colomn.setCode("COLOMN");
-        bdObjType_colomn.setName("Колонка таблицы");
-        bdObjType_colomn.setParent(bdObjType_TYPE);
-        bdObjType_colomn.setNeedDDL(true);
-        bdObjType_colomn = entityService.save(bdObjType_colomn);
+        VBdObjectTypeEntity bdObjType_column = new VBdObjectTypeEntity();
+        bdObjType_column.setCode("COLOMN");
+        bdObjType_column.setName("Колонка таблицы");
+        bdObjType_column.setParent(bdObjType_TYPE);
+        bdObjType_column.setNeedDDL(true);
+        bdObjType_column = entityService.save(bdObjType_column);
 
         VBdObjectTypeEntity bdObjType_index = new VBdObjectTypeEntity();
         bdObjType_index.setCode("INDEX");

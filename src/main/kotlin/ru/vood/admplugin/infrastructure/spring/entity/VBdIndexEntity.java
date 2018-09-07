@@ -30,7 +30,7 @@ public class VBdIndexEntity extends VBdObjectEntity {
     @JoinColumn(name = "COLUMNS", referencedColumnName = COLLECTION)*/
 //@LazyCollection()
     @Transient
-    private List<VBdIndexedColumnsEntity> colomnsEntities;
+    private List<VBdIndexedColumnsEntity> columnsEntities;
 
     //    @Basic
     @Column(name = "COLUMNS", nullable = true, length = 1)
@@ -53,12 +53,12 @@ public class VBdIndexEntity extends VBdObjectEntity {
         this.globalI = globalI;
     }
 
-    public List<VBdIndexedColumnsEntity> getColomnsEntities() {
-        return colomnsEntities;
+    public List<VBdIndexedColumnsEntity> getColumnsEntities() {
+        return columnsEntities;
     }
 
     public void setColumnsEntities(List<VBdIndexedColumnsEntity> columnsEntities) {
-        this.colomnsEntities = columnsEntities;
+        this.columnsEntities = columnsEntities;
     }
 
     public BigDecimal getColumns() {
@@ -73,16 +73,16 @@ public class VBdIndexEntity extends VBdObjectEntity {
         if (columns == null) {
             columns = LoadedCTX.getService(CommonFunctionService.class).nextId();
         }
-        if (colomnsEntities == null) {
-            colomnsEntities = new ArrayList<VBdIndexedColumnsEntity>();
+        if (columnsEntities == null) {
+            columnsEntities = new ArrayList<VBdIndexedColumnsEntity>();
         }
         entity.setCollectionId(columns);
-        colomnsEntities.add(entity);
+        columnsEntities.add(entity);
     }
 
     public void addColumn(VBdColumnsEntity entity) {
         VBdIndexedColumnsEntity indexedColomnsEntity = new VBdIndexedColumnsEntity();
-        indexedColomnsEntity.setColomnRef(entity);
+        indexedColomnsEntity.setColumnRef(entity);
         addColumn(indexedColomnsEntity);
     }
 

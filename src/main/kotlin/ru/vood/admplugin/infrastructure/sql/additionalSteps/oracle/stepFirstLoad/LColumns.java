@@ -8,7 +8,7 @@ import ru.vood.admplugin.infrastructure.sql.dbms.oracle.AddPrimaryKeySql;
 import ru.vood.admplugin.infrastructure.tune.PluginTunes;
 
 @Service
-public class LColomns {
+public class LColumns {
 
     protected final static String tableName = "V_BD_COLOMNS";
     @Autowired

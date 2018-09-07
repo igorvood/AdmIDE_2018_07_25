@@ -27,32 +27,32 @@ public class EditColumnImpl implements StepsEditServise {
             return queryTable;
         }
 
-        VBdColumnsEntity bdColomnOld = (VBdColumnsEntity) bdObjectOld;
-        VBdColumnsEntity bdColomnNew = (VBdColumnsEntity) bdObjectNew;
+        VBdColumnsEntity bdColumnOld = (VBdColumnsEntity) bdObjectOld;
+        VBdColumnsEntity bdColumnNew = (VBdColumnsEntity) bdObjectNew;
 
 
-        if (!bdColomnOld.getCode().equals(bdObjectNew.getCode()) || !bdColomnOld.getNotNull() == bdColomnNew.getNotNull()) {
+        if (!bdColumnOld.getCode().equals(bdObjectNew.getCode()) || !bdColumnOld.getNotNull() == bdColumnNew.getNotNull()) {
             StringBuffer stringBuffer = new StringBuffer();
             StringBuffer stringBegin = new StringBuffer();
-            stringBegin.append(" ALTER TABLE " + tunes.getOwner() + "." + tunes.getPrefixTable() + bdColomnNew.getParent().getCode());
-            //stringBegin.append(" MODIFY ( " + bdColomnOld.getCode() + " ");
+            stringBegin.append(" ALTER TABLE " + tunes.getOwner() + "." + tunes.getPrefixTable() + bdColumnNew.getParent().getCode());
+
             stringBuffer.append(stringBegin);
             // если переименование идет
-            if (!bdColomnOld.getCode().equals(bdObjectNew.getCode())) {
-                stringBuffer.append(" RENAME COLUMN " + bdColomnOld.getCode() + " to " + bdObjectNew.getCode());
+            if (!bdColumnOld.getCode().equals(bdObjectNew.getCode())) {
+                stringBuffer.append(" RENAME COLUMN " + bdColumnOld.getCode() + " to " + bdObjectNew.getCode());
                 queryTable.add(stringBuffer.toString());
                 stringBuffer = new StringBuffer(stringBegin);
             }
 
             // если ставится или убирается not null
-            if (!bdColomnOld.getNotNull() == bdColomnNew.getNotNull()) {
-                VBdTableEntity vBdTableEntity = (VBdTableEntity) bdColomnNew.getTypeValue();
-                stringBuffer.append(" MODIFY ( " + bdColomnNew.getCode() + " ");
-                if (bdColomnNew.getTypeValue().getTypeObject().equals(ObjectTypes.getSTRING())) {
+            if (!bdColumnOld.getNotNull() == bdColumnNew.getNotNull()) {
+                VBdTableEntity vBdTableEntity = (VBdTableEntity) bdColumnNew.getTypeValue();
+                stringBuffer.append(" MODIFY ( " + bdColumnNew.getCode() + " ");
+                if (bdColumnNew.getTypeValue().getTypeObject().equals(ObjectTypes.getSTRING())) {
                     String length = vBdTableEntity.getLength() == null ? " " : "(" + vBdTableEntity.getLength() + ")";
-                    stringBuffer.append(" VARCHAR2 " + length + " " + ((bdColomnNew.getNotNull()) ? " not null" : " ") + " )");
+                    stringBuffer.append(" VARCHAR2 " + length + " " + ((bdColumnNew.getNotNull()) ? " not null" : " ") + " )");
                     queryTable.add(stringBuffer.toString());
-                } else if (bdColomnNew.getTypeValue().getTypeObject().equals(ObjectTypes.getNUMBER())) {
+                } else if (bdColumnNew.getTypeValue().getTypeObject().equals(ObjectTypes.getNUMBER())) {
                     Long len = vBdTableEntity.getLength();
                     Long pres = vBdTableEntity.getPrecision();
                     String paramNum = "";
@@ -61,15 +61,15 @@ public class EditColumnImpl implements StepsEditServise {
                     } else if (len > 0) {
                         paramNum = "(" + len + ")";
                     }
-                    stringBuffer.append(" NUMBER" + paramNum + " " + ((bdColomnNew.getNotNull()) ? "not null" : "" + ")"));
+                    stringBuffer.append(" NUMBER" + paramNum + " " + ((bdColumnNew.getNotNull()) ? "not null" : "" + ")"));
                     queryTable.add(stringBuffer.toString());
-                } else if (bdColomnNew.getTypeValue().getTypeObject().equals(ObjectTypes.getDATE())) {
-                    stringBuffer.append(" DATE " + ((bdColomnNew.getNotNull()) ? "not null" : "") + ")");
+                } else if (bdColumnNew.getTypeValue().getTypeObject().equals(ObjectTypes.getDATE())) {
+                    stringBuffer.append(" DATE " + ((bdColumnNew.getNotNull()) ? "not null" : "") + ")");
                     queryTable.add(stringBuffer.toString());
-                } else if (bdColomnNew.getTypeValue().getTypeObject().equals(ObjectTypes.getREFERENCE())) {
-                    stringBuffer.append(" NUMBER " + ((bdColomnNew.getNotNull()) ? "not null" : "") + ")");
+                } else if (bdColumnNew.getTypeValue().getTypeObject().equals(ObjectTypes.getREFERENCE())) {
+                    stringBuffer.append(" NUMBER " + ((bdColumnNew.getNotNull()) ? "not null" : "") + ")");
                     queryTable.add(stringBuffer.toString());
-                } else if (bdColomnNew.getTypeValue().getTypeObject().equals(ObjectTypes.getARRAY())) {
+                } else if (bdColumnNew.getTypeValue().getTypeObject().equals(ObjectTypes.getARRAY())) {
                     // МАссив всегда not null
                 }
             }

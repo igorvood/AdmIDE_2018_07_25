@@ -25,7 +25,7 @@ public class VBdIndexedColumnsEntity {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "COLUMN_REF", referencedColumnName = "ID", nullable = false)
-    private VBdColumnsEntity colomnRef;
+    private VBdColumnsEntity columnRef;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = COLLECTION, referencedColumnName = "COLUMNS", insertable = false, updatable = false)
@@ -48,10 +48,10 @@ public class VBdIndexedColumnsEntity {
     }
 
     public VBdColumnsEntity getColumnRef() {
-        return colomnRef;
+        return columnRef;
     }
 
-    public void setColomnRef(VBdColumnsEntity colomnRef) {
-        this.colomnRef = colomnRef;
+    public void setColumnRef(VBdColumnsEntity columnRef) {
+        this.columnRef = columnRef;
     }
 }

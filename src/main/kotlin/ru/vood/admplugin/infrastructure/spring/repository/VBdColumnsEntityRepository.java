@@ -7,7 +7,7 @@ import ru.vood.admplugin.infrastructure.spring.entity.VBdTableEntity;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface VBdColomnsEntityRepository extends JpaRepository<VBdColumnsEntity, BigDecimal> {
+public interface VBdColumnsEntityRepository extends JpaRepository<VBdColumnsEntity, BigDecimal> {
 
 
     //------------------------------individual-----------------------------

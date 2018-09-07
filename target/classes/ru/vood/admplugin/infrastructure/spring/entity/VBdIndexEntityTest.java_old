@@ -1,0 +1,48 @@
+package ru.vood.admplugin.infrastructure.spring.entity;
+
+import ru.vood.admplugin.infrastructure.sql.additionalSteps.oracle.stepFirstLoad.LIndexedColumns;
+
+import javax.persistence.*;
+import java.util.List;
+
+import static ru.vood.admplugin.infrastructure.sql.sqlInterfaces.SQLInterface.COLLECTION;
+import static ru.vood.admplugin.infrastructure.spring.entity.ParentForAll.SCHEMA;
+
+@Entity
+@Table(name = "V_BD_INDEX", schema = SCHEMA, catalog = "")
+public class VBdIndexEntityTest extends VBdObjectEntity {
+    @Basic
+    @Column(name = "UNIQUE_I")
+    private boolean uniqueI = false;
+
+    @Basic
+    @Column(name = "GLOBAL_I")
+    private boolean globalI = false;
+
+    //@OneToMany(targetEntity = VBdIndexedColomnsEntity.class)
+    @OneToMany
+//    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinColumn(name = "COLUMNS", referencedColumnName = COLLECTION, table = LIndexedColumns.tableName)
+//    //COLLECTION
+//    //COLUMNS
+    private List<VBdIndexedColomnsEntityTest> colomnsEntities;
+
+
+    public boolean getUniqueI() {
+        return uniqueI;
+    }
+
+    public void setUniqueI(boolean uniqueI) {
+        this.uniqueI = uniqueI;
+    }
+
+    public boolean getGlobalI() {
+        return globalI;
+    }
+
+    public void setGlobalI(boolean globalI) {
+        this.globalI = globalI;
+    }
+
+
+}

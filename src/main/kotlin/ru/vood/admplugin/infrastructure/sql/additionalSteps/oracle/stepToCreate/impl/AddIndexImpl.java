@@ -49,8 +49,8 @@ public class AddIndexImpl implements StepsCreateAndDropServise {
 
         QueryTableNew queryTable = new QueryTableNew();
         VBdIndexEntity bdIndex = (VBdIndexEntity) bdObject;
-        if (bdIndex.getColomnsEntities() != null) {
-            List s = bdIndex.getColomnsEntities().stream()
+        if (bdIndex.getColumnsEntities() != null) {
+            List s = bdIndex.getColumnsEntities().stream()
                     .map((c) -> c.getColumnRef().getCode())
                     .collect(Collectors.toList());
             //String sql = indexSql.generateUser(bdIndex.getParent().getCode(), bdIndex.getUniqueI(), s, null);
@@ -62,8 +62,8 @@ public class AddIndexImpl implements StepsCreateAndDropServise {
 
     }
 
-    private String generateAll(String tableName, boolean isUnique, boolean isReverse, String tableSpace, List<String> colomns, String nameIdx) {
-        if (colomns == null || colomns.isEmpty()) {
+    private String generateAll(String tableName, boolean isUnique, boolean isReverse, String tableSpace, List<String> columns, String nameIdx) {
+        if (columns == null || columns.isEmpty()) {
             throw new ApplicationErrorException("Не определен список колонок для индекса.");
         }
 
@@ -79,7 +79,7 @@ public class AddIndexImpl implements StepsCreateAndDropServise {
             res = new StringBuffer("create unique index ");
         }
         res.append(nameIndex);
-        col.append(colomns.stream().reduce((s1, s2) -> s1 + ", " + s2).orElse(" "));
+        col.append(columns.stream().reduce((s1, s2) -> s1 + ", " + s2).orElse(" "));
 
         res.append(" on ");
         res.append(tableName);
@@ -95,11 +95,11 @@ public class AddIndexImpl implements StepsCreateAndDropServise {
         return res.toString();
     }
 
-    public String generateSys(String tableName, boolean isUnique, List<String> colomns) {
-        String nameSysIndex = colomns.stream().reduce((s1, s2) -> s1 + "_" + s2).orElse(" ");
+    public String generateSys(String tableName, boolean isUnique, List<String> columns) {
+        String nameSysIndex = columns.stream().reduce((s1, s2) -> s1 + "_" + s2).orElse(" ");
         nameSysIndex = "SYS_IDX_" + tableName + "_" + nameSysIndex;
         nameSysIndex = limitingNameDBMS.getNameObj(nameSysIndex);
-        return generateAll(tableName, isUnique, false, pluginTunes.getTableSpaceSysIndex(), colomns, nameSysIndex);
+        return generateAll(tableName, isUnique, false, pluginTunes.getTableSpaceSysIndex(), columns, nameSysIndex);
     }
 
 }

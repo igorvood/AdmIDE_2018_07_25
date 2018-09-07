@@ -31,7 +31,7 @@ class GenerateEditorBodyKotlinCode(@Autowired
         val retVal = StringBuilder()
         val columnsEntities = columnsEntityService.findByParent(entity as VBdTableEntity?)
         val listReference = columnsEntities.asSequence()
-                .filter { e -> e.typeColomn == ObjectTypes.getREFERENCE() }
+                .filter { e -> e.typeColumn == ObjectTypes.getREFERENCE() }
                 .toList()
 
         //val fields = StringBuilder()

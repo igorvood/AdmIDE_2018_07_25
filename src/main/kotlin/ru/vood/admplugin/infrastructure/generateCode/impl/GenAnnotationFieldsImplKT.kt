@@ -39,14 +39,14 @@ class GenAnnotationFieldsImplKT : GenAnnotationFieldsServiceKT {
     override fun genCode(entity: VBdColumnsEntity, typeOfGenClass: TypeOfGenClass, backReference: Boolean): StringBuilder {
         //val col = entity as VBdColumnsEntity
         if (!backReference) {
-            when (entity.typeColomn) {
+            when (entity.typeColumn) {
                 ObjectTypes.getSTRING() -> return genSimple(entity)
                 ObjectTypes.getNUMBER() -> return genSimple(entity)
                 ObjectTypes.getDATE() -> return genDate(entity)
                 ObjectTypes.getBOOLEAN() -> return genSimple(entity)
                 ObjectTypes.getARRAY() -> return genSimple(entity)
                 ObjectTypes.getREFERENCE() -> return genRef(entity)
-                else -> throw ApplicationException("Невозможно преобразовать тип колонки ${entity.typeColomn?.code} ")
+                else -> throw ApplicationException("Невозможно преобразовать тип колонки ${entity.typeColumn?.code} ")
             }
         } else {
             return genBackReference(entity)

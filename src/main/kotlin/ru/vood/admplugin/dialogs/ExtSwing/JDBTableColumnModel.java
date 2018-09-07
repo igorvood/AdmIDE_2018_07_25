@@ -137,16 +137,11 @@ public class JDBTableColumnModel extends AbstractTableModel {
         if (bdObject == null) {
             return false;
         }
-        //if (bdObject instanceof BDTable) {
 
-        /*VBdColomnsEntity bdColomns = new VBdColomnsEntity();
-        Query<VBdColomnsEntity> bdColomnsResultSetToObject = new Query<VBdColomnsEntity>(bdColomns, AppConst.getTune(ListTunes.PREFIX_COLOMN));
-        TreeSet<VBdColomnsEntity> colomnsTreeSet = bdColomnsResultSetToObject.viewToSet(SystemObject.VW_COLOMN_FOR_TABLE, new NameValuePair("PARENT", bdObject.getId().toString()));*/
-
-        VBdColumnsEntityService vBdColomnsEntityService = LoadedCTX.getService(VBdColumnsEntityService.class);
-        List<VBdColumnsEntity> colomns = vBdColomnsEntityService.findAllByParent(bdObject);
-        if (colomns != null) {
-            for (VBdColumnsEntity col : colomns) {
+        VBdColumnsEntityService vBdColumnsEntityService = LoadedCTX.getService(VBdColumnsEntityService.class);
+        List<VBdColumnsEntity> columns = vBdColumnsEntityService.findAllByParent(bdObject);
+        if (columns != null) {
+            for (VBdColumnsEntity col : columns) {
                 rows.add(col);
                 isEmpty = false;
             }

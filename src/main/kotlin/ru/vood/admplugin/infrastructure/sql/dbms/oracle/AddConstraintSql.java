@@ -18,18 +18,18 @@ public class AddConstraintSql {
         this.limitingNameDBMS = limitingNameDBMS;
     }
 
-    public String getSql(String tableName, String colomn, String refTableName, String refColomn) {
+    public String getSql(String tableName, String column, String refTableName, String refColumn) {
         String s = "alter table " + pluginTunes.getUser() + "." + tableName + "\n" +
-                "  add constraint " + limitingNameDBMS.getNameObj("FK#" + tableName + "_" + colomn + "_" + refTableName) + " foreign key (" + colomn + ")\n" +
-                "  references " + pluginTunes.getUser() + "." + refTableName + " (" + refColomn + ")\n";
+                "  add constraint " + limitingNameDBMS.getNameObj("FK#" + tableName + "_" + column + "_" + refTableName) + " foreign key (" + column + ")\n" +
+                "  references " + pluginTunes.getUser() + "." + refTableName + " (" + refColumn + ")\n";
         return s;
     }
 
-    public String getSqlAndAddPrefix(String tableName, String colomn, String refTableName, String refColomn) {
+    public String getSqlAndAddPrefix(String tableName, String column, String refTableName, String refColumn) {
         String s = "alter table " + pluginTunes.getUser() + "." + pluginTunes.getPrefixTable() + tableName + "\n" +
                 "  add constraint " + limitingNameDBMS.getNameObj("FK#" + pluginTunes.getPrefixTable() +
-                tableName + "_" + colomn + "_" + pluginTunes.getPrefixTable() + refTableName) + " foreign key (" + colomn + ")\n" +
-                "  references " + pluginTunes.getUser() + "." + pluginTunes.getPrefixTable() + refTableName + " (" + refColomn + ")\n";
+                tableName + "_" + column + "_" + pluginTunes.getPrefixTable() + refTableName) + " foreign key (" + column + ")\n" +
+                "  references " + pluginTunes.getUser() + "." + pluginTunes.getPrefixTable() + refTableName + " (" + refColumn + ")\n";
         return s;
     }
 }

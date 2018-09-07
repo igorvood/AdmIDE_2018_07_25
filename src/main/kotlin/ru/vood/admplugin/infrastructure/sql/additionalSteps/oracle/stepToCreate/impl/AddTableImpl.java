@@ -62,17 +62,6 @@ public class AddTableImpl implements StepsCreateAndDropServise {
             //Добавление первичного ключа
             queryTable.addAll(primaryKey.createDDL(bdTable));
 
-            // Автоматически добавить ID в колонки
-//            VBdColumnsEntity colomnsEntity = new VBdColumnsEntity();
-//            colomnsEntity.setParent(bdObject);
-//            colomnsEntity.setCode("ID");
-//            colomnsEntity.setName("ID");
-//            colomnsEntity.setNotNull("1");
-//            colomnsEntity.setTypeColomn(ObjectTypes.getNUMBER());
-//            colomnsEntity.setTypeValue(Tables.getAny("NUM"));
-//            colomnsEntity = columnsEntityService.save(colomnsEntity);
-
-
             //если добавляем таблицу с настоящим родителем, то надо их связать внешним ключем
             if (bdTable.getParent() instanceof VBdTableEntity) {
                 queryTable.addAll(foreignKeyForParent.createDDL(bdTable));

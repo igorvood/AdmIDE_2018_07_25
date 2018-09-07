@@ -49,59 +49,56 @@ public class AddColumnImpl implements StepsCreateAndDropServise {
             return queryTable;
         }
 
-        VBdColumnsEntity bdColomns = (VBdColumnsEntity) bdObject;
+        VBdColumnsEntity bdColumns = (VBdColumnsEntity) bdObject;
         StringBuffer stringBuffer = new StringBuffer();
 
-        stringBuffer.append("ALTER TABLE " + tunes.getPrefixTable() + bdColomns.getParent().getCode() + "\n");
-        stringBuffer.append("ADD " + bdColomns.getCode());
+        stringBuffer.append("ALTER TABLE " + tunes.getPrefixTable() + bdColumns.getParent().getCode() + "\n");
+        stringBuffer.append("ADD " + bdColumns.getCode());
 
-        VBdTableEntity vBdTableEntity = (VBdTableEntity) bdColomns.getTypeValue();
+        VBdTableEntity vBdTableEntity = (VBdTableEntity) bdColumns.getTypeValue();
 
-        if (bdColomns.getTypeValue().getTypeObject().equals(ObjectTypes.getSTRING())) {
+        if (bdColumns.getTypeValue().getTypeObject().equals(ObjectTypes.getSTRING())) {
             String length = vBdTableEntity.getLength() == null ? " " : "(" + vBdTableEntity.getLength() + ")";
-            stringBuffer.append(" VARCHAR2" + length + " " + ((bdColomns.getNotNull()) ? " not null" : " "));
-        } else if (bdColomns.getTypeValue().getTypeObject().equals(ObjectTypes.getNUMBER())) {
+            stringBuffer.append(" VARCHAR2" + length + " " + ((bdColumns.getNotNull()) ? " not null" : " "));
+        } else if (bdColumns.getTypeValue().getTypeObject().equals(ObjectTypes.getNUMBER())) {
             Long len = vBdTableEntity.getLength();
             Long pres = vBdTableEntity.getPrecision();
             String paramNum = "";
             if (len == null && pres == null) {
-                stringBuffer.append(" NUMBER" + " " + ((bdColomns.getNotNull()) ? "not null" : ""));
+                stringBuffer.append(" NUMBER" + " " + ((bdColumns.getNotNull()) ? "not null" : ""));
             } else {
                 if (len > 0 && pres > 0) {
                     paramNum = "(" + len + "," + pres + ")";
                 } else if (len > 0) {
                     paramNum = "(" + len + ")";
                 }
-                stringBuffer.append(" NUMBER" + paramNum + " " + ((bdColomns.getNotNull()) ? "not null" : ""));
+                stringBuffer.append(" NUMBER" + paramNum + " " + ((bdColumns.getNotNull()) ? "not null" : ""));
             }
-        } else if (bdColomns.getTypeValue().getTypeObject().equals(ObjectTypes.getDATE())) {
-            stringBuffer.append(" DATE " + ((bdColomns.getNotNull()) ? "not null" : ""));
-        } else if (bdColomns.getTypeValue().getTypeObject().equals(ObjectTypes.getREFERENCE())) {
-            stringBuffer.append(" NUMBER " + ((bdColomns.getNotNull()) ? "not null" : ""));
+        } else if (bdColumns.getTypeValue().getTypeObject().equals(ObjectTypes.getDATE())) {
+            stringBuffer.append(" DATE " + ((bdColumns.getNotNull()) ? "not null" : ""));
+        } else if (bdColumns.getTypeValue().getTypeObject().equals(ObjectTypes.getREFERENCE())) {
+            stringBuffer.append(" NUMBER " + ((bdColumns.getNotNull()) ? "not null" : ""));
             queryTable.add(stringBuffer.toString());
             String pref = tunes.getPrefixTable();
-            stringBuffer = new StringBuffer(constraintSql.getSql(pref + (bdColomns).getParent().getCode(), (bdColomns).getCode(), pref + vBdTableEntity.getToType().getCode(), "ID"));
-        } else if (bdColomns.getTypeValue().getTypeObject().equals(ObjectTypes.getARRAY())) {
+            stringBuffer = new StringBuffer(constraintSql.getSql(pref + (bdColumns).getParent().getCode(), (bdColumns).getCode(), pref + vBdTableEntity.getToType().getCode(), "ID"));
+        } else if (bdColumns.getTypeValue().getTypeObject().equals(ObjectTypes.getARRAY())) {
             //Если работа идет с массивом то сначала добавить колонку, потом заполнить ее значениями, и поптом ее сделать не пустой.
             stringBuffer.append(" NUMBER ");
             queryTable.add(stringBuffer.toString());
             stepsCreate.runQueryes(queryTable);
             stringBuffer = new StringBuffer();
-            stringBuffer.append(" UPDATE  " + tunes.getOwner() + "." + tunes.getPrefixTable() + bdColomns.getParent().getCode() + "\n");
-            stringBuffer.append(" SET " + bdColomns.getCode() + " = SEQ_ID.nextval  ");
+            stringBuffer.append(" UPDATE  " + tunes.getOwner() + "." + tunes.getPrefixTable() + bdColumns.getParent().getCode() + "\n");
+            stringBuffer.append(" SET " + bdColumns.getCode() + " = SEQ_ID.nextval  ");
 
             queryTable = new QueryTableNew();
             queryTable.add(stringBuffer.toString());
             queryTable.add("commit ");
 
             stringBuffer = new StringBuffer();
-//            stringBuffer.append(" ALTER TABLE " + tunes.getOwner() + "." + tunes.getPrefixTable() + bdColomns.getParent().getCode());
-//            stringBuffer.append(" MODIFY  " + bdColomns.getCode() + " NUMBER not null ");
-//            queryTable.add(stringBuffer.toString());
 
             stepsCreate.runQueryes(queryTable);
         }
-        if (!bdColomns.getTypeValue().getTypeObject().equals(ObjectTypes.getARRAY())) {
+        if (!bdColumns.getTypeValue().getTypeObject().equals(ObjectTypes.getARRAY())) {
             queryTable.add(stringBuffer.toString());
         }
         return queryTable;

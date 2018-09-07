@@ -14,7 +14,7 @@ public class VBdColumnsEntity extends VBdObjectEntity {
 
     @ManyToOne
     @JoinColumn(name = "TYPE_COLOMN", referencedColumnName = "ID", nullable = true)
-    private VBdObjectTypeEntity typeColomn;
+    private VBdObjectTypeEntity typeColumn;
 
     @ManyToOne
     @JoinColumn(name = "TYPE_VALUE", referencedColumnName = "ID", nullable = true)
@@ -28,12 +28,12 @@ public class VBdColumnsEntity extends VBdObjectEntity {
         this.notNull = notNull;
     }
 
-    public VBdObjectTypeEntity getTypeColomn() {
-        return typeColomn;
+    public VBdObjectTypeEntity getTypeColumn() {
+        return typeColumn;
     }
 
-    public void setTypeColomn(VBdObjectTypeEntity typeColomn) {
-        this.typeColomn = typeColomn;
+    public void setTypeColumn(VBdObjectTypeEntity typeColumn) {
+        this.typeColumn = typeColumn;
     }
 
     public VBdObjectEntity getTypeValue() {

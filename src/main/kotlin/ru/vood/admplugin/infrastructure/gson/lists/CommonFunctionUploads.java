@@ -27,7 +27,7 @@ public class CommonFunctionUploads {
         if (aClass.equals(VBdTableEntity.class)) {
             ts = new VBdTableEntityList();
         } else if (aClass.equals(VBdColumnsEntity.class)) {
-            ts = new VBdColomnsEntityList();
+            ts = new VBdColumnsEntityList();
         } else if (aClass.equals(VBdIndexEntity.class)) {
             ts = new VBdIndexEntityList();
         }

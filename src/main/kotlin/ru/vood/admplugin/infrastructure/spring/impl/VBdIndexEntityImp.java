@@ -27,7 +27,7 @@ public class VBdIndexEntityImp implements VBdIndexEntityService {
     @Autowired
     protected VBdIndexEntityRepository entityTestRepository;
     @Autowired
-    protected VBdIndexedColumnsEntityRepository indexedColomnsEntityRepository;
+    protected VBdIndexedColumnsEntityRepository indexedColumnsEntityRepository;
     @Autowired
     protected EntityManager em;
     @Autowired
@@ -35,16 +35,16 @@ public class VBdIndexEntityImp implements VBdIndexEntityService {
 
     @Override
     public VBdIndexEntity save(VBdIndexEntity entity) {
-        if (entity.getColomnsEntities() != null) {
-            entity.getColomnsEntities().stream().forEach(col -> indexedColomnsEntityRepository.save(col));
+        if (entity.getColumnsEntities() != null) {
+            entity.getColumnsEntities().stream().forEach(col -> indexedColumnsEntityRepository.save(col));
         }
         return entityTestRepository.save(entity);
     }
 
     @Override
     public void delete(VBdIndexEntity entity) {
-        if (entity.getColomnsEntities() != null) {
-            entity.getColomnsEntities().stream().forEach(col -> indexedColomnsEntityRepository.delete(col));
+        if (entity.getColumnsEntities() != null) {
+            entity.getColumnsEntities().stream().forEach(col -> indexedColumnsEntityRepository.delete(col));
         }
         entityTestRepository.delete(entity);
     }
@@ -54,19 +54,15 @@ public class VBdIndexEntityImp implements VBdIndexEntityService {
         Query query = em.createQuery("select a1 from VBdIndexEntity a1 " +
                 "  join fetch a1.typeObject a2 " +
                 "  join fetch a1.parent a3  " +
-//                "  join fetch a1.typeValue a5 " +
                 "  join fetch a1.typeObject a6 " +
-                // "  left join VBdIndexedColumnsEntity a7 on  a1.columns= a7.collectionId " +
-                //"  join fetch a1.colomnsEntities a7 " +
                 " where a1.parent = :parent " +
-                //" order by a2.id " +
                 "")
                 .setParameter("parent", parent);
         List<VBdIndexEntity> listVBdIndexEntity = query.getResultList();
         List<BigDecimal> bigDecimals = listVBdIndexEntity.stream().map(q -> q.getColumns()).collect(Collectors.toList());
-        List<VBdIndexedColumnsEntity> indexedColomnsEntities = indexedColomnsEntityRepository.findByCollectionIdIn(bigDecimals);
+        List<VBdIndexedColumnsEntity> indexedColumnsEntities = indexedColumnsEntityRepository.findByCollectionIdIn(bigDecimals);
         for (VBdIndexEntity li : listVBdIndexEntity) {
-            for (VBdIndexedColumnsEntity col : indexedColomnsEntities) {
+            for (VBdIndexedColumnsEntity col : indexedColumnsEntities) {
                 if (li.getColumns().equals(col.getCollectionId())) {
                     li.addColumn(col);
                 }

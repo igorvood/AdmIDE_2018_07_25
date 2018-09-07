@@ -29,9 +29,9 @@ public class EditIndexImpl implements StepsEditServise {
         QueryTableNew queryTable = new QueryTableNew();
         VBdIndexEntity bdIndexOld = (VBdIndexEntity) bdObjectOld;
         VBdIndexEntity bdIndexNew = (VBdIndexEntity) bdObjectNew;
-        if (bdIndexNew.getColomnsEntities() != null) {
+        if (bdIndexNew.getColumnsEntities() != null) {
             if (!bdIndexOld.getCode().equals(bdIndexNew.getCode())) {
-                if (bdIndexOld.getColomnsEntities().size() != bdIndexNew.getColomnsEntities().size()) {
+                if (bdIndexOld.getColumnsEntities().size() != bdIndexNew.getColumnsEntities().size()) {
                     queryTable.addAll(dropServise.createDDL(bdIndexOld));
                     queryTable.addAll(addIndex.createDDL(bdIndexNew));
                 }

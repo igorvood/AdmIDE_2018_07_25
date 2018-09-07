@@ -22,7 +22,7 @@ public class TuneChainStepsFirstLoad {
     private LObject lObj;
 
     @Autowired
-    private LColomns lColomns;
+    private LColumns lColumns;
 
     @Autowired
     private LIndexedColumns indexedColumns;
@@ -58,7 +58,7 @@ public class TuneChainStepsFirstLoad {
         queryTable.addAll(lObj.additionOne());
 
         // 3 создание таблицы колонок
-        queryTable.addAll(lColomns.additionOne());
+        queryTable.addAll(lColumns.additionOne());
 
         // 4 создание таблицы Таблиц
         queryTable.addAll(lTable.additionOne());

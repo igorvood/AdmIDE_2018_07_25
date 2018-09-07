@@ -21,9 +21,9 @@ public class LTableInsert {
     private VBdObjectEntityService objectEntityService;
 
     @Autowired
-    private VBdColumnsEntityService colomnsEntityService;
+    private VBdColumnsEntityService columnsEntityService;
 
-    public QueryTableNew additionOne() throws CoreExeption {
+    public QueryTableNew additionOne() {
 
         VBdTableEntity bdObject_date_table = new VBdTableEntity();
         bdObject_date_table.setCode("DATE");
@@ -94,7 +94,7 @@ public class LTableInsert {
 //        VBdColumnsEntity colomnsEntity = new VBdColumnsEntity();
 //        colomnsEntity.setCode("CITY");
 //        colomnsEntity.setName("Город");
-//        colomnsEntity.setTypeColomn(ObjectTypes.getSTRING());
+//        colomnsEntity.setTypeColumn(ObjectTypes.getSTRING());
 //        colomnsEntity.setTypeValue(bdObject_str_table_new);
 //        colomnsEntity.setParent(bdObject_table_aderss);
 //        colomnsEntity.setTypeObject(ObjectTypes.getCOLUMN());
@@ -104,7 +104,7 @@ public class LTableInsert {
 //        colomnsEntity = new VBdColumnsEntity();
 //        colomnsEntity.setCode("STREET");
 //        colomnsEntity.setName("Улица");
-//        colomnsEntity.setTypeColomn(ObjectTypes.getSTRING());
+//        colomnsEntity.setTypeColumn(ObjectTypes.getSTRING());
 //        colomnsEntity.setTypeValue(bdObject_str_table_new);
 //        colomnsEntity.setParent(bdObject_table_aderss);
 //        colomnsEntity.setTypeObject(ObjectTypes.getCOLUMN());
@@ -157,7 +157,7 @@ public class LTableInsert {
 //        colomnsEntity = new VBdColumnsEntity();
 //        colomnsEntity.setCode("NAME");
 //        colomnsEntity.setName("ФИО");
-//        colomnsEntity.setTypeColomn(ObjectTypes.getSTRING());
+//        colomnsEntity.setTypeColumn(ObjectTypes.getSTRING());
 //        colomnsEntity.setTypeValue(bdObject_str_table_new);
 //        colomnsEntity.setParent(bdObject_table_new);
 //        colomnsEntity.setTypeObject(ObjectTypes.getCOLUMN());
@@ -167,7 +167,7 @@ public class LTableInsert {
 //        colomnsEntity = new VBdColumnsEntity();
 //        colomnsEntity.setCode("DATE_BIRTH");
 //        colomnsEntity.setName("Дата рождения");
-//        colomnsEntity.setTypeColomn(ObjectTypes.getDATE());
+//        colomnsEntity.setTypeColumn(ObjectTypes.getDATE());
 //        colomnsEntity.setTypeValue(Tables.getAny("DATE"));
 //        colomnsEntity.setParent(bdObject_table_new);
 //        colomnsEntity.setTypeObject(ObjectTypes.getCOLUMN());

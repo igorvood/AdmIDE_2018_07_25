@@ -21,13 +21,13 @@ import static ru.vood.admplugin.infrastructure.applicationConst.Const.COLLECTION
 public class AddArrayImpl implements StepsCreateAndDropServise {
 
     private CommonFunctionService commonFunction;
-    private VBdColumnsEntityService colomnsEntityService;
+    private VBdColumnsEntityService columnsEntityService;
     private VBdIndexEntityService indexEntityService;
 
     @Autowired
     public AddArrayImpl(CommonFunctionService commonFunction, VBdColumnsEntityService columnsEntityService, VBdIndexEntityService indexEntityService) {
         this.commonFunction = commonFunction;
-        this.colomnsEntityService = columnsEntityService;
+        this.columnsEntityService = columnsEntityService;
         this.indexEntityService = indexEntityService;
     }
 
@@ -42,26 +42,26 @@ public class AddArrayImpl implements StepsCreateAndDropServise {
         if (bdTable.getTypeObject().equals(ObjectTypes.getARRAY())) {
             queryTable = new QueryTableNew();
 
-            VBdColumnsEntity colomnsEntity = new VBdColumnsEntity();
-            colomnsEntity.setParent(((VBdTableEntity) bdObject).getToType());
-            colomnsEntity.setCode(COLLECTION);
-            colomnsEntity.setName("Идентификатор коллекции");
-            colomnsEntity.setNotNull(true);
-            colomnsEntity.setTypeColomn(ObjectTypes.getNUMBER());
-            colomnsEntity.setTypeValue(Tables.getAny("NUM"));
-            colomnsEntity.setTypeObject(ObjectTypes.getCOLUMN());
-            colomnsEntity.setJavaClass(colomnsEntity.getClass().toString());
-            VBdColumnsEntity new_colomnsEntity = colomnsEntityService.save(colomnsEntity);
+            VBdColumnsEntity columnsEntity = new VBdColumnsEntity();
+            columnsEntity.setParent(((VBdTableEntity) bdObject).getToType());
+            columnsEntity.setCode(COLLECTION);
+            columnsEntity.setName("Идентификатор коллекции");
+            columnsEntity.setNotNull(true);
+            columnsEntity.setTypeColumn(ObjectTypes.getNUMBER());
+            columnsEntity.setTypeValue(Tables.getAny("NUM"));
+            columnsEntity.setTypeObject(ObjectTypes.getCOLUMN());
+            columnsEntity.setJavaClass(columnsEntity.getClass().toString());
+            columnsEntityService.save(columnsEntity);
 
             VBdIndexEntity indexEntity = new VBdIndexEntity();
-            indexEntity.setCode("IDX_" + bdObject.getCode() + "_" + colomnsEntity.getCode());
-            indexEntity.setName("IDX_" + bdObject.getCode() + "_" + colomnsEntity.getCode());
+            indexEntity.setCode("IDX_" + bdObject.getCode() + "_" + columnsEntity.getCode());
+            indexEntity.setName("IDX_" + bdObject.getCode() + "_" + columnsEntity.getCode());
             indexEntity.setTypeObject(ObjectTypes.getINDEX());
             indexEntity.setParent(((VBdTableEntity) bdObject).getToType());
             indexEntity.setJavaClass(indexEntity.getClass().toString());
             indexEntity.setColumns(commonFunction.nextId());
 
-            indexEntity.addColumn(colomnsEntity);
+            indexEntity.addColumn(columnsEntity);
             indexEntity = indexEntityService.save(indexEntity);
 
 

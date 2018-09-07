@@ -22,7 +22,7 @@ class LTableInsertForTests {
     private lateinit var objectEntityService: VBdObjectEntityService
 
     @Autowired
-    private lateinit var colomnsEntityService: VBdColumnsEntityService
+    private lateinit var columnsEntityService: VBdColumnsEntityService
 
     fun additionOne(): QueryTableNew {
 
@@ -67,25 +67,25 @@ class LTableInsertForTests {
 
         bdObject_table_aderss = bdTableEntityService.save(bdObject_table_aderss)
 
-        var colomnsEntity = VBdColumnsEntity()
-        colomnsEntity.code = "CITY"
-        colomnsEntity.name = "Город"
-        colomnsEntity.typeColomn = ObjectTypes.getSTRING()
-        colomnsEntity.typeValue = bdObject_str_table_new
-        colomnsEntity.parent = bdObject_table_aderss
-        colomnsEntity.typeObject = ObjectTypes.getCOLUMN()
-        colomnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
-        colomnsEntity = colomnsEntityService.save(colomnsEntity)
+        var columnsEntity = VBdColumnsEntity()
+        columnsEntity.code = "CITY"
+        columnsEntity.name = "Город"
+        columnsEntity.typeColumn = ObjectTypes.getSTRING()
+        columnsEntity.typeValue = bdObject_str_table_new
+        columnsEntity.parent = bdObject_table_aderss
+        columnsEntity.typeObject = ObjectTypes.getCOLUMN()
+        columnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
+        columnsEntity = columnsEntityService.save(columnsEntity)
 
-        colomnsEntity = VBdColumnsEntity()
-        colomnsEntity.code = "STREET"
-        colomnsEntity.name = "Улица"
-        colomnsEntity.typeColomn = ObjectTypes.getSTRING()
-        colomnsEntity.typeValue = bdObject_str_table_new
-        colomnsEntity.parent = bdObject_table_aderss
-        colomnsEntity.typeObject = ObjectTypes.getCOLUMN()
-        colomnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
-        colomnsEntity = colomnsEntityService.save(colomnsEntity)
+        columnsEntity = VBdColumnsEntity()
+        columnsEntity.code = "STREET"
+        columnsEntity.name = "Улица"
+        columnsEntity.typeColumn = ObjectTypes.getSTRING()
+        columnsEntity.typeValue = bdObject_str_table_new
+        columnsEntity.parent = bdObject_table_aderss
+        columnsEntity.typeObject = ObjectTypes.getCOLUMN()
+        columnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
+        columnsEntity = columnsEntityService.save(columnsEntity)
 
         var table = VBdTableEntity()
         val arrCode = bdObject_table_aderss.code + "_ARR"
@@ -120,47 +120,47 @@ class LTableInsertForTests {
         table = bdTableEntityService.save(table)
 
 
-        colomnsEntity = VBdColumnsEntity()
-        colomnsEntity.code = "NAME"
-        colomnsEntity.name = "ФИО"
-        colomnsEntity.typeColomn = ObjectTypes.getSTRING()
-        colomnsEntity.typeValue = bdObject_str_table_new
-        colomnsEntity.parent = bdObject_table_new
-        colomnsEntity.typeObject = ObjectTypes.getCOLUMN()
-        colomnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
-        colomnsEntity = colomnsEntityService.save(colomnsEntity)
+        columnsEntity = VBdColumnsEntity()
+        columnsEntity.code = "NAME"
+        columnsEntity.name = "ФИО"
+        columnsEntity.typeColumn = ObjectTypes.getSTRING()
+        columnsEntity.typeValue = bdObject_str_table_new
+        columnsEntity.parent = bdObject_table_new
+        columnsEntity.typeObject = ObjectTypes.getCOLUMN()
+        columnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
+        columnsEntity = columnsEntityService.save(columnsEntity)
 
-        colomnsEntity = VBdColumnsEntity()
-        colomnsEntity.code = "DATE_BIRTH"
-        colomnsEntity.name = "Дата рождения"
-        colomnsEntity.typeColomn = ObjectTypes.getDATE()
-        colomnsEntity.typeValue = Tables.getAny("DATE")
-        colomnsEntity.parent = bdObject_table_new
-        colomnsEntity.typeObject = ObjectTypes.getCOLUMN()
-        colomnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
-        colomnsEntity = colomnsEntityService.save(colomnsEntity)
+        columnsEntity = VBdColumnsEntity()
+        columnsEntity.code = "DATE_BIRTH"
+        columnsEntity.name = "Дата рождения"
+        columnsEntity.typeColumn = ObjectTypes.getDATE()
+        columnsEntity.typeValue = Tables.getAny("DATE")
+        columnsEntity.parent = bdObject_table_new
+        columnsEntity.typeObject = ObjectTypes.getCOLUMN()
+        columnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
+        columnsEntity = columnsEntityService.save(columnsEntity)
 
         if (true) {
-            colomnsEntity = VBdColumnsEntity()
-            colomnsEntity.code = "ADRESESS"
-            colomnsEntity.name = "Адреса"
-            colomnsEntity.typeColomn = ObjectTypes.getARRAY()
-            colomnsEntity.typeValue = Tables.getAny(arrCode)
-            colomnsEntity.parent = bdObject_table_new
-            colomnsEntity.typeObject = ObjectTypes.getCOLUMN()
-            colomnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
-            colomnsEntity = colomnsEntityService.save(colomnsEntity)
+            columnsEntity = VBdColumnsEntity()
+            columnsEntity.code = "ADRESESS"
+            columnsEntity.name = "Адреса"
+            columnsEntity.typeColumn = ObjectTypes.getARRAY()
+            columnsEntity.typeValue = Tables.getAny(arrCode)
+            columnsEntity.parent = bdObject_table_new
+            columnsEntity.typeObject = ObjectTypes.getCOLUMN()
+            columnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
+            columnsEntity = columnsEntityService.save(columnsEntity)
 
 
-            colomnsEntity = VBdColumnsEntity()
-            colomnsEntity.code = "ADRESES_TYPE"
-            colomnsEntity.name = "Тип адреса"
-            colomnsEntity.typeColomn = ObjectTypes.getREFERENCE()
-            colomnsEntity.typeValue = Tables.getAny(refTypeAdr)
-            colomnsEntity.parent = bdObject_table_aderss
-            colomnsEntity.typeObject = ObjectTypes.getCOLUMN()
-            colomnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
-            colomnsEntity = colomnsEntityService.save(colomnsEntity)
+            columnsEntity = VBdColumnsEntity()
+            columnsEntity.code = "ADRESES_TYPE"
+            columnsEntity.name = "Тип адреса"
+            columnsEntity.typeColumn = ObjectTypes.getREFERENCE()
+            columnsEntity.typeValue = Tables.getAny(refTypeAdr)
+            columnsEntity.parent = bdObject_table_aderss
+            columnsEntity.typeObject = ObjectTypes.getCOLUMN()
+            columnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
+            columnsEntity = columnsEntityService.save(columnsEntity)
 
             var bdObject_tableOrg = VBdTableEntity()
             bdObject_tableOrg.code = "CLIENT_ORG"
@@ -170,15 +170,15 @@ class LTableInsertForTests {
             bdObject_tableOrg.javaClass = VBdTableEntity::class.java.toString()
             bdObject_tableOrg = bdTableEntityService.save(bdObject_tableOrg)
 
-            colomnsEntity = VBdColumnsEntity()
-            colomnsEntity.code = "KPP"
-            colomnsEntity.name = "КПП"
-            colomnsEntity.typeColomn = ObjectTypes.getSTRING()
-            colomnsEntity.typeValue = Tables.getAny(bdObject_str_table_new.code)
-            colomnsEntity.parent = bdObject_tableOrg
-            colomnsEntity.typeObject = ObjectTypes.getCOLUMN()
-            colomnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
-            colomnsEntity = colomnsEntityService.save(colomnsEntity)
+            columnsEntity = VBdColumnsEntity()
+            columnsEntity.code = "KPP"
+            columnsEntity.name = "КПП"
+            columnsEntity.typeColumn = ObjectTypes.getSTRING()
+            columnsEntity.typeValue = Tables.getAny(bdObject_str_table_new.code)
+            columnsEntity.parent = bdObject_tableOrg
+            columnsEntity.typeObject = ObjectTypes.getCOLUMN()
+            columnsEntity.javaClass = VBdColumnsEntity::class.java.toString()
+            columnsEntity = columnsEntityService.save(columnsEntity)
         }
 
         return QueryTableNew()

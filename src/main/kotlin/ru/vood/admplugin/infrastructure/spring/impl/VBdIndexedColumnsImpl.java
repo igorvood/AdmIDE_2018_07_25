@@ -12,7 +12,7 @@ import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Service//("jpaVBdIndexedColomnsService")
+@Service
 @Repository
 @Transactional
 public class VBdIndexedColumnsImpl implements VBdIndexedColumnsEntityService {
