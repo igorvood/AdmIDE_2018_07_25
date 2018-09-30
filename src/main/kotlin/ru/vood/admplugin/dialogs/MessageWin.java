@@ -4,8 +4,6 @@ import ru.vood.admplugin.dialogs.ExtSwing.JAddDialog;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MessageWin extends JAddDialog {
     private JPanel contentPane;
@@ -18,11 +16,7 @@ public class MessageWin extends JAddDialog {
         textArea1.setText(textMessage);
         getRootPane().setDefaultButton(buttonOK);
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        buttonOK.addActionListener(e -> onOK());
 
         this.setSize(new Dimension(500, 300));
         this.pack();

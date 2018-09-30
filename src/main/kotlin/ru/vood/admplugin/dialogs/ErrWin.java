@@ -7,7 +7,6 @@ import ru.vood.admplugin.dialogs.ExtSwing.JAddDialog;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ErrWin extends JAddDialog {
     private final static Logger lOG = LoggerFactory.getLogger(JAddDialog.class);
@@ -24,16 +23,8 @@ public class ErrWin extends JAddDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
-        getDetailButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onGetDetailButton(e);
-            }
-        });
+        buttonOK.addActionListener(e -> onOK());
+        getDetailButton.addActionListener(e -> onGetDetailButton(e));
 
         //throw new ApplicationErrorException(-1, "");
     }

@@ -312,26 +312,23 @@ public class ADMDialog extends JAddDialog {
         {
             JMenuItem menuGenerateCode = new JMenuItem();
             menuGenerateCode.setText("Generate Code");
-            menuGenerateCode.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent ae) {
+            /*  private void FirstLoad_ActionPerformed(ActionEvent ae) {
+                  try {
+                      LoadedCTX.getService(TuneChainStepsFirstLoad.class).run();
+                      workTree();
+                  } catch (CoreExeption coreExeption) {
+                      new MessageWin("Не удалось инициализировать таблицы", coreExeption);
+                  }
 
-                    final VBdTableEntityService vBdTableEntityService = LoadedCTX.getService(VBdTableEntityService.class);
-                    final List<VBdTableEntity> tables = vBdTableEntityService.findByTypeObjectCodeIn("TABLE");
-                    final GenerateFiles generateFiles = LoadedCTX.getService(GenerateFiles.class);
+              }*/
+            menuGenerateCode.addActionListener(ae -> {
 
-                    final List<Path> pathList = generateFiles.genFiles(Paths.get("C:\\temp\\test\\demo\\src\\main\\kotlin"), tables, TypeOfGenClass.values());
-                    System.out.println(pathList);
-                }
+                final VBdTableEntityService vBdTableEntityService = LoadedCTX.getService(VBdTableEntityService.class);
+                final List<VBdTableEntity> tables = vBdTableEntityService.findByTypeObjectCodeIn("TABLE");
+                final GenerateFiles generateFiles = LoadedCTX.getService(GenerateFiles.class);
 
-          /*  private void FirstLoad_ActionPerformed(ActionEvent ae) {
-                try {
-                    LoadedCTX.getService(TuneChainStepsFirstLoad.class).run();
-                    workTree();
-                } catch (CoreExeption coreExeption) {
-                    new MessageWin("Не удалось инициализировать таблицы", coreExeption);
-                }
-
-            }*/
+                final List<Path> pathList = generateFiles.genFiles(Paths.get("C:\\temp\\test\\demo\\src\\main\\kotlin"), tables, TypeOfGenClass.values());
+                System.out.println(pathList);
             });
             menuTools.add(menuGenerateCode);
         }
@@ -365,29 +362,19 @@ public class ADMDialog extends JAddDialog {
         {
             jMenuItemAddSubType = new JMenuItem();
             jMenuItemAddSubType.setText("Add");
-            jMenuItemAddSubType.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    addOrEditColumn((VBdObjectEntity) ((DefaultMutableTreeNode) tree1.getLastSelectedPathComponent()).getUserObject(), true);
-                }
-            });
+            jMenuItemAddSubType.addActionListener(e -> addOrEditColumn((VBdObjectEntity) ((DefaultMutableTreeNode) tree1.getLastSelectedPathComponent()).getUserObject(), true));
         }
         {
             jMenuItemEditType = new JMenuItem();
             jMenuItemEditType.setText("Edit");
-            jMenuItemEditType.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    addOrEditColumn((VBdObjectEntity) ((DefaultMutableTreeNode) tree1.getLastSelectedPathComponent()).getUserObject(), false);
-                }
-            });
+            jMenuItemEditType.addActionListener(e -> addOrEditColumn((VBdObjectEntity) ((DefaultMutableTreeNode) tree1.getLastSelectedPathComponent()).getUserObject(), false));
         }
         {
             jMenuItemAddToList = new JMenuItem();
             jMenuItemAddToList.setText("Add To List");
-            jMenuItemAddToList.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    //ToDo добавить обработку добавления в список
-                    //jMenuItemAddToList_actionPerformed(e);
-                }
+            jMenuItemAddToList.addActionListener(e -> {
+                //ToDo добавить обработку добавления в список
+                //jMenuItemAddToList_actionPerformed(e);
             });
         }
         jPopupMenu.add(jMenuItemAddSubType);
@@ -403,24 +390,13 @@ public class ADMDialog extends JAddDialog {
         {
             jMenuItemAddColumn = new JMenuItem();
             jMenuItemAddColumn.setText("Add Column");
-            jMenuItemAddColumn.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent ae) {
-                    fileTune_ActionPerformed(ae);
-                }
-
-
-            });
+            jMenuItemAddColumn.addActionListener(this::fileTune_ActionPerformed);
             menuAdd.add(jMenuItemAddColumn);
 
             JMenuItem jMenuItemAddIndex = new JMenuItem();
 
             jMenuItemAddIndex.setText("Add Index");
-            jMenuItemAddIndex.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent ae) {
-                    fileTune_ActionPerformed(ae);
-                }
-
-            });
+            jMenuItemAddIndex.addActionListener(this::fileTune_ActionPerformed);
             menuAdd.add(jMenuItemAddIndex);
 
 

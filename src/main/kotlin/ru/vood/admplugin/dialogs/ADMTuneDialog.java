@@ -13,7 +13,10 @@ import ru.vood.admplugin.infrastructure.tune.PluginTunes;
 import ru.vood.core.runtime.exception.ApplicationErrorException;
 
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -89,17 +92,9 @@ public class ADMTuneDialog extends JAddDialog {
 
         this.comboBoxCfgName.removeAll();
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        buttonOK.addActionListener(e -> onOK());
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        buttonCancel.addActionListener(e -> onCancel());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -110,32 +105,17 @@ public class ADMTuneDialog extends JAddDialog {
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        buttonAddCfg.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-                addNewConfig();
-            }
-        });
-        comboBoxCfgName.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    loadTune(comboBoxCfgName.getSelectedItem().toString());
-                }
+        buttonAddCfg.addActionListener(e -> addNewConfig());
+        comboBoxCfgName.addItemListener(e -> {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                loadTune(comboBoxCfgName.getSelectedItem().toString());
             }
         });
 
         loadTune(tunes);
-        buttonDeleteCfg.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                deleteCfg();
-            }
-        });
+        buttonDeleteCfg.addActionListener(e -> deleteCfg());
     }
 
     private static PluginTunes getDefaultTunes() {
@@ -197,7 +177,8 @@ public class ADMTuneDialog extends JAddDialog {
         PluginTunes pluginTunes1;
         try {
 
-            pluginTunes1 = configurations.stream().peek(pt -> pt.setDefaultConfiguration(false))
+            pluginTunes1 = configurations.stream()
+                    .peek(pt -> pt.setDefaultConfiguration(false))
                     .filter(pt -> pt.getNameCurrentList().equalsIgnoreCase(pluginTunes.getNameCurrentList()))
                     .findFirst().get();
             configurations.remove(pluginTunes1);

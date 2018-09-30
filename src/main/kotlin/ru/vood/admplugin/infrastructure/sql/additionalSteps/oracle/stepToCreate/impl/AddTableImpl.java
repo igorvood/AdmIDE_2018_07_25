@@ -50,14 +50,13 @@ public class AddTableImpl implements StepsCreateAndDropServise {
 
         VBdTableEntity bdTable = (VBdTableEntity) bdObject;
         if (bdTable.getTypeObject().equals(ObjectTypes.getTABLE())) {
-            StringBuffer stringBuffer = new StringBuffer();
 
-            stringBuffer.append("-- Create table\n");
-            stringBuffer.append("create table ").append(tunes.getOwner()).append(".").append(tunes.getPrefixTable()).append(bdTable.getCode()).append("\n");
-            stringBuffer.append("(id NUMBER not null) ");
-            stringBuffer.append(" tablespace ").append(tunes.getTableSpaceUserTable()).append("\n ");
-            stringBuffer.append(tunes.getStorageTable()).append("\n");
-            queryTable.add(stringBuffer.toString());
+            String stringBuffer = "-- Create table\n" +
+                    "create table " + tunes.getOwner() + "." + tunes.getPrefixTable() + bdTable.getCode() + "\n" +
+                    "(id NUMBER not null) " +
+                    " tablespace " + tunes.getTableSpaceUserTable() + "\n " +
+                    tunes.getStorageTable() + "\n";
+            queryTable.add(stringBuffer);
 
             //Добавление первичного ключа
             queryTable.addAll(primaryKey.createDDL(bdTable));
