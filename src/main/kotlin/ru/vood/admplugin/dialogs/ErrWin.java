@@ -51,12 +51,12 @@ public class ErrWin extends JAddDialog {
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
         StringBuffer messages = new StringBuffer();
         if (exept != null) {
-            messages.append(exept.getMessage() + "\n");
+            messages.append(exept.getMessage()).append("\n");
         }
 
 
         for (int i = stackTraceElements.length - 1; i > 0; i--) {
-            messages.append("CLASS: " + stackTraceElements[i].getClassName() + " METHOD: " + stackTraceElements[i].getMethodName() + " LINE: " + stackTraceElements[i].getLineNumber() + "\n");
+            messages.append("CLASS: ").append(stackTraceElements[i].getClassName()).append(" METHOD: ").append(stackTraceElements[i].getMethodName()).append(" LINE: ").append(stackTraceElements[i].getLineNumber()).append("\n");
         }
         textArea2.setText(messages.toString());
         lOG.error(err, exept);

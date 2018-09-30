@@ -52,32 +52,32 @@ public class AddColumnImpl implements StepsCreateAndDropServise {
         VBdColumnsEntity bdColumns = (VBdColumnsEntity) bdObject;
         StringBuffer stringBuffer = new StringBuffer();
 
-        stringBuffer.append("ALTER TABLE " + tunes.getPrefixTable() + bdColumns.getParent().getCode() + "\n");
-        stringBuffer.append("ADD " + bdColumns.getCode());
+        stringBuffer.append("ALTER TABLE ").append(tunes.getPrefixTable()).append(bdColumns.getParent().getCode()).append("\n");
+        stringBuffer.append("ADD ").append(bdColumns.getCode());
 
         VBdTableEntity vBdTableEntity = (VBdTableEntity) bdColumns.getTypeValue();
 
         if (bdColumns.getTypeValue().getTypeObject().equals(ObjectTypes.getSTRING())) {
             String length = vBdTableEntity.getLength() == null ? " " : "(" + vBdTableEntity.getLength() + ")";
-            stringBuffer.append(" VARCHAR2" + length + " " + ((bdColumns.getNotNull()) ? " not null" : " "));
+            stringBuffer.append(" VARCHAR2").append(length).append(" ").append((bdColumns.getNotNull()) ? " not null" : " ");
         } else if (bdColumns.getTypeValue().getTypeObject().equals(ObjectTypes.getNUMBER())) {
             Long len = vBdTableEntity.getLength();
             Long pres = vBdTableEntity.getPrecision();
             String paramNum = "";
             if (len == null && pres == null) {
-                stringBuffer.append(" NUMBER" + " " + ((bdColumns.getNotNull()) ? "not null" : ""));
+                stringBuffer.append(" NUMBER" + " ").append((bdColumns.getNotNull()) ? "not null" : "");
             } else {
                 if (len > 0 && pres > 0) {
                     paramNum = "(" + len + "," + pres + ")";
                 } else if (len > 0) {
                     paramNum = "(" + len + ")";
                 }
-                stringBuffer.append(" NUMBER" + paramNum + " " + ((bdColumns.getNotNull()) ? "not null" : ""));
+                stringBuffer.append(" NUMBER").append(paramNum).append(" ").append((bdColumns.getNotNull()) ? "not null" : "");
             }
         } else if (bdColumns.getTypeValue().getTypeObject().equals(ObjectTypes.getDATE())) {
-            stringBuffer.append(" DATE " + ((bdColumns.getNotNull()) ? "not null" : ""));
+            stringBuffer.append(" DATE ").append((bdColumns.getNotNull()) ? "not null" : "");
         } else if (bdColumns.getTypeValue().getTypeObject().equals(ObjectTypes.getREFERENCE())) {
-            stringBuffer.append(" NUMBER " + ((bdColumns.getNotNull()) ? "not null" : ""));
+            stringBuffer.append(" NUMBER ").append((bdColumns.getNotNull()) ? "not null" : "");
             queryTable.add(stringBuffer.toString());
             String pref = tunes.getPrefixTable();
             stringBuffer = new StringBuffer(constraintSql.getSql(pref + (bdColumns).getParent().getCode(), (bdColumns).getCode(), pref + vBdTableEntity.getToType().getCode(), "ID"));
@@ -87,8 +87,8 @@ public class AddColumnImpl implements StepsCreateAndDropServise {
             queryTable.add(stringBuffer.toString());
             stepsCreate.runQueryes(queryTable);
             stringBuffer = new StringBuffer();
-            stringBuffer.append(" UPDATE  " + tunes.getOwner() + "." + tunes.getPrefixTable() + bdColumns.getParent().getCode() + "\n");
-            stringBuffer.append(" SET " + bdColumns.getCode() + " = SEQ_ID.nextval  ");
+            stringBuffer.append(" UPDATE  ").append(tunes.getOwner()).append(".").append(tunes.getPrefixTable()).append(bdColumns.getParent().getCode()).append("\n");
+            stringBuffer.append(" SET ").append(bdColumns.getCode()).append(" = SEQ_ID.nextval  ");
 
             queryTable = new QueryTableNew();
             queryTable.add(stringBuffer.toString());

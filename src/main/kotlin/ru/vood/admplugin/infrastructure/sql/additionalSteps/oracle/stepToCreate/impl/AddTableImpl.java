@@ -53,10 +53,10 @@ public class AddTableImpl implements StepsCreateAndDropServise {
             StringBuffer stringBuffer = new StringBuffer();
 
             stringBuffer.append("-- Create table\n");
-            stringBuffer.append("create table " + tunes.getOwner() + "." + tunes.getPrefixTable() + bdTable.getCode() + "\n");
+            stringBuffer.append("create table ").append(tunes.getOwner()).append(".").append(tunes.getPrefixTable()).append(bdTable.getCode()).append("\n");
             stringBuffer.append("(id NUMBER not null) ");
-            stringBuffer.append(" tablespace " + tunes.getTableSpaceUserTable() + "\n ");
-            stringBuffer.append(tunes.getStorageTable() + "\n");
+            stringBuffer.append(" tablespace ").append(tunes.getTableSpaceUserTable()).append("\n ");
+            stringBuffer.append(tunes.getStorageTable()).append("\n");
             queryTable.add(stringBuffer.toString());
 
             //Добавление первичного ключа

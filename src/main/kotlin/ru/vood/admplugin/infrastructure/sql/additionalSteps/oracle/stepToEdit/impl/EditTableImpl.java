@@ -41,7 +41,7 @@ public class EditTableImpl implements StepsEditServise {
         VBdTableEntity bdTableNew = (VBdTableEntity) bdObjectNew;
         if (bdTableOld.getTypeObject().equals(ObjectTypes.getTABLE()) && bdTableNew.getTypeObject().equals(ObjectTypes.getTABLE())) {
             StringBuffer stringBuffer = new StringBuffer();
-            stringBuffer.append("alter table " + tunes.getOwner() + "." + tunes.getPrefixTable() + bdTableOld.getCode() + " rename to " + tunes.getPrefixTable() + bdTableNew.getCode());
+            stringBuffer.append("alter table ").append(tunes.getOwner()).append(".").append(tunes.getPrefixTable()).append(bdTableOld.getCode()).append(" rename to ").append(tunes.getPrefixTable()).append(bdTableNew.getCode());
             queryTable.add(stringBuffer.toString());
         }
 
