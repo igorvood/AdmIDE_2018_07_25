@@ -36,7 +36,7 @@ public class VBdIndexEntityImp implements VBdIndexEntityService {
     @Override
     public VBdIndexEntity save(VBdIndexEntity entity) {
         if (entity.getColumnsEntities() != null) {
-            entity.getColumnsEntities().stream().forEach(col -> indexedColumnsEntityRepository.save(col));
+            indexedColumnsEntityRepository.save(entity.getColumnsEntities());
         }
         return entityTestRepository.save(entity);
     }
@@ -44,7 +44,7 @@ public class VBdIndexEntityImp implements VBdIndexEntityService {
     @Override
     public void delete(VBdIndexEntity entity) {
         if (entity.getColumnsEntities() != null) {
-            entity.getColumnsEntities().stream().forEach(col -> indexedColumnsEntityRepository.delete(col));
+            indexedColumnsEntityRepository.delete(entity.getColumnsEntities());
         }
         entityTestRepository.delete(entity);
     }

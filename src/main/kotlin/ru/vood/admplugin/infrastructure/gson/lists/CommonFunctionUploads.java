@@ -36,9 +36,7 @@ public class CommonFunctionUploads {
             List qe = entityList.stream()
                     .filter(q -> q.getClass().equals(aClass))
                     .collect(Collectors.toList());
-            for (Object obj : qe) {
-                ts.add(obj);
-            }
+            ts.addAll(qe);
         }
         return ts;
     }
