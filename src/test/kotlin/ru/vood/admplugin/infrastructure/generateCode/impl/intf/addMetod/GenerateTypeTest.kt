@@ -1,16 +1,12 @@
 package ru.vood.admplugin.infrastructure.generateCode.impl.intf.addMetod
 
 import org.junit.Test
-
-import org.junit.Assert.*
 import ru.vood.admplugin.BaseTest
 import ru.vood.admplugin.infrastructure.generateCode.impl.GenClassServiceKT
 import ru.vood.admplugin.infrastructure.generateCode.impl.TypeOfGenClass
-import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addMetod.concreteMethod.GenerateSpecificMethodService
-import ru.vood.admplugin.infrastructure.spring.entity.VBdObjectEntity
 import java.math.BigDecimal
 
-class GenerateTypeTest : BaseTest (){
+class GenerateTypeTest : BaseTest() {
 
     @Test
     fun getCode() {

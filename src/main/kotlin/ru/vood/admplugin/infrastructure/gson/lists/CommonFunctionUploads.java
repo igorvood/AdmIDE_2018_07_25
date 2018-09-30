@@ -50,10 +50,9 @@ public class CommonFunctionUploads {
     public List<File> getListFileInDir(File dir) {
         File tmp = dir.isDirectory() ? dir : new File(dir.getParent());
 
-        List<File> list = Arrays.asList(tmp.listFiles()).stream()
+        return Arrays.asList(tmp.listFiles()).stream()
                 .filter(f -> f.getName().endsWith(".table"))
                 .collect(Collectors.toList());
-        return list;
     }
 
     public void deleteFiles(List<File> fileList) {

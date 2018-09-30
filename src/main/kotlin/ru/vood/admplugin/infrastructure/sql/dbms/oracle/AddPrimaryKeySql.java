@@ -28,9 +28,8 @@ public class AddPrimaryKeySql {
 
     private String generate(String tableName, String tableSpace) {
         String nameConstraint = nameDBMS.getNameObj("PK#" + tableName);
-        String s = "alter table " + tunes.getUser() + "." + tableName + "\n" +
+        return "alter table " + tunes.getUser() + "." + tableName + "\n" +
                 "  add constraint " + nameConstraint + " primary key (ID)\n" +
                 "  using index tablespace \n" + tableSpace + tunes.getStorageIndex();
-        return s;
     }
 }

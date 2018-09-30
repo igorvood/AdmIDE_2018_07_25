@@ -2,11 +2,8 @@ package ru.vood.admplugin.infrastructure.spring.impl;
 
 import org.junit.Test;
 import ru.vood.admplugin.BaseTest;
-import ru.vood.admplugin.infrastructure.spring.entity.VBdColumnsEntity;
 import ru.vood.admplugin.infrastructure.spring.entity.VBdTableEntity;
 import ru.vood.admplugin.infrastructure.spring.referenceBook.Tables;
-
-import java.util.List;
 
 public class VBdColumnsEntityImplTest extends BaseTest {
 
@@ -33,7 +30,7 @@ public class VBdColumnsEntityImplTest extends BaseTest {
     @Test
     public void findColumnRefIn() {
         final VBdTableEntity type_adress = Tables.getAny("TYPE_ADRESS");
-        final List<VBdColumnsEntity> columnRefIn = colomnsEntityService.findColumnRefIn(type_adress);
-        System.out.println(columnRefIn);
+//        final List<VBdColumnsEntity> columnRefIn = colomnsEntityService.findColumnRefIn(type_adress);
+        //      System.out.println(columnRefIn);
     }
 }
