@@ -149,30 +149,27 @@ public class UploadStorage {
                     entity.setId(null);
                 }
             }
-            Comparator comparator = new Comparator() {
-                @Override
-                public int compare(Object o1, Object o2) {
-                    if (o1.getClass().equals(o2.getClass())) return 0;
+            Comparator comparator = (o1, o2) -> {
+                if (o1.getClass().equals(o2.getClass())) return 0;
 
-                    Integer priorO1 = 1001;
-                    if (o1 instanceof VBdObjectEntity) priorO1 = 10;
-                    if (o1 instanceof VBdTableEntity) priorO1 = 100;
-                    if (o1 instanceof VBdColumnsEntity) priorO1 = 200;
-                    if (o1 instanceof VBdIndexEntity) priorO1 = 300;
+                Integer priorO1 = 1001;
+                if (o1 instanceof VBdObjectEntity) priorO1 = 10;
+                if (o1 instanceof VBdTableEntity) priorO1 = 100;
+                if (o1 instanceof VBdColumnsEntity) priorO1 = 200;
+                if (o1 instanceof VBdIndexEntity) priorO1 = 300;
 
-                    Integer priorO2 = 1001;
-                    if (o2 instanceof VBdObjectEntity) priorO2 = 10;
-                    if (o2 instanceof VBdTableEntity) priorO2 = 100;
-                    if (o2 instanceof VBdColumnsEntity) priorO2 = 200;
-                    if (o2 instanceof VBdIndexEntity) priorO2 = 300;
+                Integer priorO2 = 1001;
+                if (o2 instanceof VBdObjectEntity) priorO2 = 10;
+                if (o2 instanceof VBdTableEntity) priorO2 = 100;
+                if (o2 instanceof VBdColumnsEntity) priorO2 = 200;
+                if (o2 instanceof VBdIndexEntity) priorO2 = 300;
 
-                    return priorO1.compareTo(priorO2);
-                }
+                return priorO1.compareTo(priorO2);
             };
             // отсортирую, так дальше будет удобнее. сначала объекты -> таблицы -> колонки -> индексы
             objectEntities = objectEntityHashMap.values()
                     .stream()
-                    .sorted((o1, o2) -> comparator.compare(o1, o2))
+                    .sorted(comparator::compare)
                     .collect(Collectors.toList());
 
         }

@@ -3,7 +3,6 @@ package ru.vood.admplugin.infrastructure.sql.additionalSteps.oracle.stepFirstLoa
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.vood.admplugin.infrastructure.spring.entity.VBdTableEntity;
-import ru.vood.admplugin.infrastructure.spring.except.CoreExeption;
 import ru.vood.admplugin.infrastructure.spring.intf.VBdColumnsEntityService;
 import ru.vood.admplugin.infrastructure.spring.intf.VBdObjectEntityService;
 import ru.vood.admplugin.infrastructure.spring.intf.VBdTableEntityService;

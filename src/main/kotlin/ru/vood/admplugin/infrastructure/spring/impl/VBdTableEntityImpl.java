@@ -14,6 +14,7 @@ import ru.vood.admplugin.infrastructure.spring.repository.VBdTableEntityReposito
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service//("jpaVBdTableEntityService")
@@ -45,9 +46,7 @@ public class VBdTableEntityImpl /*extends VBdObjectEntityImpl/*ParentForAllImpl*
     @Override
     public List<VBdTableEntity> findByTypeObjectCodeIn(String... codeS) {
         List<String> codeList = new ArrayList<>();
-        for (String s : codeS) {
-            codeList.add(s);
-        }
+        Collections.addAll(codeList, codeS);
 
         Query query = em.createQuery("" +
                 "   select a1 from VBdTableEntity a1 " +

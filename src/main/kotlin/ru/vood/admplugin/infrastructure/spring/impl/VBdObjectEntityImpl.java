@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -40,9 +41,7 @@ public class VBdObjectEntityImpl /*extends ParentForAllImpl*/ implements VBdObje
     public ArrayList<VBdObjectEntity> findByTypeObjectCodeIn(String... codeS) {
 
         List<String> stringList = new ArrayList<>(codeS.length);
-        for (int i = 0; i < codeS.length; i++) {
-            stringList.add(codeS[i]);
-        }
+        Collections.addAll(stringList, codeS);
         Query query = em.createQuery("select a2 from VBdObjectEntity a2 " +
                 "  join fetch a2.typeObject a1 " + //" on a1.code in :codeTypeS  " +
                 "  left join a2.parent a3  " +
