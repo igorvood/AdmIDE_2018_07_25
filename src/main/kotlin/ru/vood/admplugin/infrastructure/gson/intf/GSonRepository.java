@@ -7,5 +7,5 @@ import java.io.Serializable;
 
 public interface GSonRepository extends Serializable {
 
-    public Gson getGson();
+    Gson getGson();
 }

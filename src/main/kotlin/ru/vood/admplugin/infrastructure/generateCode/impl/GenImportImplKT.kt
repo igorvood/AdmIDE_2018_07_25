@@ -12,7 +12,7 @@ class GenImportImplKT : GenImportServiceKT, ApplicationListener<AddImportEvent> 
 
 
     override fun genCode(): StringBuilder {
-        if (listImports?.size > 0) {
+        if (listImports.size > 0) {
             var par = StringBuilder(listImports.asSequence()
                     .sorted()
                     .map { q -> getOneImport(q) }

@@ -79,7 +79,7 @@ public class NewOrEditNumber extends JAddDialog {
             newBDTable.setPrecision(Long.getLong(precisionField.getText()));
 
             VBdTableEntityService columnsEntityService = LoadedCTX.getService(VBdTableEntityService.class);
-            VBdTableEntity newNum = (VBdTableEntity) columnsEntityService.save(newBDTable);
+            VBdTableEntity newNum = columnsEntityService.save(newBDTable);
 
             this.setAddedObj(newNum);
             dispose();

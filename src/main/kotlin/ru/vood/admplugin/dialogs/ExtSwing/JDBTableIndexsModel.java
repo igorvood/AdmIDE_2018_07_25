@@ -101,7 +101,7 @@ public class JDBTableIndexsModel extends AbstractTableModel {
     }
 
     public VBdObjectEntity getSelectedTypeObject(int rowIndex) {
-        return ((VBdIndexEntity) rows.get(rowIndex));
+        return rows.get(rowIndex);
     }
 
 }

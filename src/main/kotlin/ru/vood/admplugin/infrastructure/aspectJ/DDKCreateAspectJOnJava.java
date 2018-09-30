@@ -49,7 +49,7 @@ public class DDKCreateAspectJOnJava {
         VBdObjectEntity oldEntity = null;
         if (adding[0] instanceof VBdObjectEntity) {
             newEntity = (VBdObjectEntity) adding[0];
-            create = newEntity.getId() == null ? true : false;
+            create = newEntity.getId() == null;
             if (!create) {
                 oldEntity = (VBdObjectEntity) LoadedCTX.getService(VBdObjectEntityService.class).findOne(newEntity.getId()).copy();
             }
@@ -90,7 +90,7 @@ public class DDKCreateAspectJOnJava {
     }
 
     @Around("deleteObj()")
-    public Object deleteObjObjArround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    public Object deleteObjObjArround(ProceedingJoinPoint proceedingJoinPoint) {
         long startTime = System.nanoTime();
         Object[] droped = proceedingJoinPoint.getArgs();
         DDLSave ddlSave = LoadedCTX.getService(DDLSave.class);

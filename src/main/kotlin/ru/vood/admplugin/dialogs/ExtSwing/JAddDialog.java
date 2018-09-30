@@ -131,8 +131,6 @@ public abstract class JAddDialog extends JDialog {
      */
     protected abstract void extension();
 
-    ;
-
     public VBdObjectEntity getAddedObj() {
         return addedObj;
     }

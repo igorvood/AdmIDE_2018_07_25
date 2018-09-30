@@ -7,7 +7,6 @@ import ru.vood.admplugin.infrastructure.spring.context.LoadedCTX;
 import ru.vood.admplugin.infrastructure.spring.entity.VBdColumnsEntity;
 import ru.vood.admplugin.infrastructure.spring.entity.VBdObjectEntity;
 import ru.vood.admplugin.infrastructure.spring.entity.VBdTableEntity;
-import ru.vood.admplugin.infrastructure.spring.except.CoreExeption;
 import ru.vood.admplugin.infrastructure.spring.intf.VBdTableEntityService;
 import ru.vood.admplugin.infrastructure.spring.referenceBook.ObjectTypes;
 import ru.vood.admplugin.infrastructure.spring.referenceBook.RootObjects;
@@ -303,12 +302,8 @@ public class ADMDialog extends JAddDialog {
                 }
 
                 private void FirstLoad_ActionPerformed(ActionEvent ae) {
-                    try {
                         LoadedCTX.getService(TuneChainStepsFirstLoad.class).run();
                         workTree();
-                    } catch (CoreExeption coreExeption) {
-                        new MessageWin("Не удалось инициализировать таблицы", coreExeption);
-                    }
                 }
             });
             menuTools.add(menuFileToosFirstLoad);

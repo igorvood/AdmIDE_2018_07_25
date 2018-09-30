@@ -58,7 +58,7 @@ public enum SystemObject {
     private String description;
     private String script;
 
-    private SystemObject(TypeSystemObject type, String nameInDB, String description, String script) {
+    SystemObject(TypeSystemObject type, String nameInDB, String description, String script) {
         this.nameInDB = nameInDB;
         this.description = description;
         this.type = type;

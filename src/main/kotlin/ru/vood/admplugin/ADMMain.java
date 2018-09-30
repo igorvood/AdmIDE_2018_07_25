@@ -50,8 +50,6 @@ public class ADMMain {
         dialog.setVisible(true);
     }
 
-    ;
-
     public static void main(String[] args) {
 
         ctx = new GenericXmlApplicationContext();

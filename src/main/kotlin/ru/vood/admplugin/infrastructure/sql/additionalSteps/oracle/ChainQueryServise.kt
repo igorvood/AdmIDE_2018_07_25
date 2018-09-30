@@ -36,7 +36,7 @@ abstract class ChainQueryServise {
                 stmt?.close()
             }
         }
-        conn?.close()
+        conn.close()
     }
 
 }

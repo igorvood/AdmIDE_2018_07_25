@@ -12,7 +12,7 @@ class AddAnnotationClass : AddJavaClassToImport() {
         if (paramOfAnnotation.isEmpty()) return "@" + super.getCode(type) + "\n"
         addingClassPublisher.publish(this, type)
         val par = paramOfAnnotation.asSequence()
-                .map { pp -> pp.key + if (!pp.value?.isEmpty()) "=" + pp.value else "" }
+                .map { pp -> pp.key + if (!pp.value.isEmpty()) "=" + pp.value else "" }
                 .reduce { s1, s2 -> s1 + ", " + s2 }
         return "@" + super.getCode(type) + "(" + par + ")\n"
     }

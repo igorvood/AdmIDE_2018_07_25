@@ -5,7 +5,7 @@ public enum SupportedDBMS {
 
     private String type;
 
-    private SupportedDBMS(String name) {
+    SupportedDBMS(String name) {
         this.type = name;
     }
 

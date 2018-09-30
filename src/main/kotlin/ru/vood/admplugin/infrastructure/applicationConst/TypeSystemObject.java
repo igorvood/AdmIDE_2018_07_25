@@ -11,7 +11,7 @@ public enum TypeSystemObject {
 
     private String name;
 
-    private TypeSystemObject(String name) {
+    TypeSystemObject(String name) {
         this.name = name;
     }
 
