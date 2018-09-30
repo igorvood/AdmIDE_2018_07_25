@@ -8,7 +8,7 @@ import java.sql.Connection
 import javax.sql.DataSource
 
 abstract class ChainQueryServise {
-    protected val lOG = LoggerFactory.getLogger(ChainQueryServise::class.java)
+    private val lOG = LoggerFactory.getLogger(ChainQueryServise::class.java)!!
     @Autowired
     protected lateinit var dataSource: DataSource
 

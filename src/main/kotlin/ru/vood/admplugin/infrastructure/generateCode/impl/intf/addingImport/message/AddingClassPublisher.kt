@@ -1,4 +1,4 @@
-package ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.Message
+package ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.message
 
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationContextAware

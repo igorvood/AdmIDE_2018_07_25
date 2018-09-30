@@ -2,7 +2,7 @@ package ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
-import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.Message.AddingClassPublisher
+import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.message.AddingClassPublisher
 import java.lang.reflect.Type
 
 @Component

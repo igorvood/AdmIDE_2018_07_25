@@ -3,7 +3,7 @@ package ru.vood.admplugin.infrastructure.generateCode.impl
 import org.springframework.context.ApplicationListener
 import org.springframework.stereotype.Component
 import ru.vood.admplugin.infrastructure.generateCode.impl.intf.GenImportServiceKT
-import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.Message.AddImportEvent
+import ru.vood.admplugin.infrastructure.generateCode.impl.intf.addingImport.message.AddImportEvent
 
 @Component
 class GenImportImplKT : GenImportServiceKT, ApplicationListener<AddImportEvent> {

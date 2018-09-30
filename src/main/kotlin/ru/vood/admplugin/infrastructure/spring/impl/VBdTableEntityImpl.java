@@ -56,8 +56,7 @@ public class VBdTableEntityImpl /*extends VBdObjectEntityImpl/*ParentForAllImpl*
                 "   where a1.typeObject.code in :codeTypeS " +
                 " ")
                 .setParameter("codeTypeS", codeList);
-        List list1 = (ArrayList<VBdTableEntity>) query.getResultList();
-        return list1;//bdTableEntityRepository.findByTypeObjectCodeIn(codeS);
+        return (List) (ArrayList<VBdTableEntity>) query.getResultList();//bdTableEntityRepository.findByTypeObjectCodeIn(codeS);
         //return bdTableEntityRepository.findByTypeObjectCodeIn(codeS);
     }
 

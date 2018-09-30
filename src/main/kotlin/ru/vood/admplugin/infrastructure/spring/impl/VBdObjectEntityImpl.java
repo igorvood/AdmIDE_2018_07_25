@@ -99,8 +99,7 @@ public class VBdObjectEntityImpl /*extends ParentForAllImpl*/ implements VBdObje
                 " ")
                 .setParameter("parent", parent)
                 .setParameter("objectType", objectTypeEntity);
-        List list1 = (ArrayList<VBdObjectEntity>) query.getResultList();
-        return list1;
+        return (List) (ArrayList<VBdObjectEntity>) query.getResultList();
     }
 
     @Override

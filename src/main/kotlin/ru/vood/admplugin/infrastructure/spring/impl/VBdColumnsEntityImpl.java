@@ -45,8 +45,7 @@ public class VBdColumnsEntityImpl /*extends VBdObjectEntityImpl /*ParentForAllIm
                 " where a2.parent = :parent " +
                 " order by a2.id ")
                 .setParameter("parent", parent);
-        List list = query.getResultList();
-        return list;
+        return query.getResultList();
     }
 
     @Override
@@ -66,8 +65,7 @@ public class VBdColumnsEntityImpl /*extends VBdObjectEntityImpl /*ParentForAllIm
                 " where a2.parent in :parent " +
                 " order by a2.id ")
                 .setParameter("parent", vBdTableEntities);
-        List list = query.getResultList();
-        return list;
+        return query.getResultList();
     }
 
     @Override
@@ -112,7 +110,6 @@ public class VBdColumnsEntityImpl /*extends VBdObjectEntityImpl /*ParentForAllIm
                 .setParameter("refType", ObjectTypes.getREFERENCE())
                 .setParameter("entity", entity);
 
-        final List resultList = query.getResultList();
-        return resultList;
+        return query.getResultList();
     }
 }

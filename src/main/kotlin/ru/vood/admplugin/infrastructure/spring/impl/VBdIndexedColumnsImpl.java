@@ -52,7 +52,6 @@ public class VBdIndexedColumnsImpl implements VBdIndexedColumnsEntityService {
                 "")
                 .setParameter("collectionId", collectionId);
         List list = query.getResultList();*/
-        List list = bdColumnsEntityRepository.findByCollectionIdIn(collectionId);
-        return list;
+        return bdColumnsEntityRepository.findByCollectionIdIn(collectionId);
     }
 }
